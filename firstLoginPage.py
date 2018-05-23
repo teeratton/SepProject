@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 from firebase import firebase
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
 
 
 
@@ -69,7 +70,24 @@ class Ui_Form(object):
             if (id.get('password') == password):
                 print("get in")
             else:
+                dialog = QDialog(self)
+                layout = QVBoxLayout()
+
+                label = QLabel(self)
+                label.setText("Incorrect password")
+                layout.addWidget(label)
+
+                close_button = QPushButton('Close')
+                close_button.clicked.connect(dialog.close)
+                layout.addWidget(close_button)
+                dialog.setLayout(layout)
+
+                dialog.show()
+
+
                 print("incorrect password")
+        else:
+            print("username is not exist")
 
 
     def checkUsername(self,username):
