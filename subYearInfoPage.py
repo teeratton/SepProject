@@ -10,6 +10,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_SubYear(object):
     def setupUi(self, Form,first,last,username,role):
+        self.subjects = []
+        self.first = first
+        self.last = last
+        self.username = username
+        self.role = role
         Form.setObjectName("Form")
         Form.resize(1269, 825)
         self.label = QtWidgets.QLabel(Form)
@@ -213,6 +218,22 @@ class Ui_SubYear(object):
         self.bandCheck.setText(_translate("Form", "Band"))
         self.chiorCheck.setText(_translate("Form", "Choir"))
         self.doneButton.setText(_translate("Form", "Done"))
+        print(self.first)
+        self.doneButton.clicked.connect(self.done)
+
+    def done(self):
+        if(self.mathCheck.isChecked()):
+            print("math")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("math"+x)
+            print(self.subjects)
+        
+
+
+
+
+
 
 
 if __name__ == "__main__":
