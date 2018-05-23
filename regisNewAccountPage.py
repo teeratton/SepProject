@@ -15,6 +15,7 @@ class Ui_Regis(object):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         Form.setObjectName("Form")
         Form.resize(1271, 823)
+        self.Form = Form
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(160, 30, 1051, 191))
         font = QtGui.QFont()
@@ -93,7 +94,7 @@ class Ui_Regis(object):
             self.window = QtWidgets.QMainWindow()
             self.ui = Ui_SubYear()
             self.ui.setupUi(self.window,first,last,username,role)
-            Form.hide()
+            self.Form.hide()
             self.window.show()
 
 
@@ -108,16 +109,23 @@ class Ui_Regis(object):
             print("please enter username")
             return 0
         self.username = self.uNameEntry.text()
-        teachers = self.db.get('/Teachers', None)
+        self.teachers = self.db.get('/Teachers', None)
+
+        if(self.username in self.teachers):
+            self.generateUsername()
+            return 0
+
+        return 1
+
+    def generateUsername(self):
         count = 1
-        while (self.username in teachers):
+        while (self.username in self.teachers):
             count += 1
             self.username = self.fNameEntry.text()+self.lNameEntry.text()[0:count]
-
-        self.dialog = QDialog(Form)
+        self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()
 
-        label = QLabel(Form)
+        label = QLabel(self.Form)
         label.setText("This is suggestion username " + self.username)
         layout.addWidget(label)
 
@@ -133,7 +141,6 @@ class Ui_Regis(object):
 
         self.dialog.show()
 
-        return 1
 
     def ConfirmPassword(self):
         self.uNameEntry.setText(self.username)
