@@ -191,10 +191,10 @@ class Ui_SubYear(object):
         font.setPointSize(14)
         self.doneButton.setFont(font)
         self.doneButton.setObjectName("doneButton")
-
+        
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-
+    
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
@@ -218,22 +218,116 @@ class Ui_SubYear(object):
         self.bandCheck.setText(_translate("Form", "Band"))
         self.chiorCheck.setText(_translate("Form", "Choir"))
         self.doneButton.setText(_translate("Form", "Done"))
-        print(self.first)
         self.doneButton.clicked.connect(self.done)
-
+    
     def done(self):
         if(self.mathCheck.isChecked()):
-            print("math")
             years = self.mathEntry.text()
             for x in years.split(','):
                 self.subjects.append("math"+x)
             print(self.subjects)
-        
-
-
-
-
-
+        elif (self.sciCheck.isChecked()):
+            print("sci")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("sci" + x)
+            print(self.subjects)
+        elif (self.hisCheck.isChecked()):
+            print("his")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("his" + x)
+            print(self.subjects)
+        elif (self.musicCheck.isChecked()):
+            print("music")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("music" + x)
+            print(self.subjects)
+        elif (self.artCheck.isChecked()):
+            print("art")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("art" + x)
+            print(self.subjects)
+        elif (self.thaiCheck.isChecked()):
+            print("thai")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("thai" + x)
+            print(self.subjects)
+        elif (self.engCheck.isChecked()):
+            print("eng")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("eng" + x)
+            print(self.subjects)
+        elif (self.peCheck.isChecked()):
+            print("pe")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("pe" + x)
+            print(self.subjects)
+        elif (self.religionCheck.isChecked()):
+            print("religion")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("religion" + x)
+            print(self.subjects)
+        elif (self.socialCheck.isChecked()):
+            print("social")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("social" + x)
+            print(self.subjects)
+        elif (self.compCheck.isChecked()):
+            print("comp")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("comp" + x)
+            print(self.subjects)
+        elif (self.geoCheck.isChecked()):
+            print("geo")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("geo" + x)
+            print(self.subjects)
+        elif (self.bioCheck.isChecked()):
+            print("bio")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("bio" + x)
+            print(self.subjects)
+        elif (self.chemCheck.isChecked()):
+            print("chem")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("chem" + x)
+            print(self.subjects)
+        elif (self.physicCheck.isChecked()):
+            print("physic")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("physic" + x)
+            print(self.subjects)
+        elif (self.dramaCheck.isChecked()):
+            print("drama")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("drama" + x)
+            print(self.subjects)
+        elif (self.bandCheck.isChecked()):
+            print("band")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("band" + x)
+            print(self.subjects)
+        elif (self.chiorCheck.isChecked()):
+            print("choir")
+            years = self.mathEntry.text()
+            for x in years.split(','):
+                self.subjects.append("chior" + x)
+            print(self.subjects)
 
 
 if __name__ == "__main__":
