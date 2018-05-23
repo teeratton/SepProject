@@ -5,11 +5,14 @@
 # Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
-
+from firebase import firebase
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
+        self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         Form.setObjectName("Form")
         Form.resize(1274, 826)
         self.label = QtWidgets.QLabel(Form)
@@ -47,6 +50,7 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
@@ -55,8 +59,27 @@ class Ui_Form(object):
         self.label_3.setText(_translate("Form", "Password:"))
         self.loginButton.setText(_translate("Form", "Login"))
 
-    def login():
-        print("Ton")
+    def login(self):
+        print("login")
+        username = self.unameEntry.text()
+        password = self.pwordEntry.text()
+        usernames = self.db.get('/Login',None)
+        if(username in usernames):
+            id = self.db.get('/Login/' + username, None)
+            if (id.get('password') == password):
+                print("get in")
+            else:
+                print("incorrect password")
+
+
+    def checkUsername(self,username):
+        teachers = self.db.get('/Teachers',None)
+        if (username in teachers):
+            print("username is already exist")
+            return 0
+        return 1
+
+
 
 
 
