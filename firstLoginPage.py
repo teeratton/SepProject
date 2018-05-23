@@ -8,10 +8,10 @@
 from firebase import firebase
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
+from regisNewAccountPage import Ui_Regis
 
 
-
-class Ui_Form(object):
+class Ui_Login(object):
     def setupUi(self, Form):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         Form.setObjectName("Form")
@@ -69,11 +69,17 @@ class Ui_Form(object):
             id = self.db.get('/Login/' + username, None)
             if (id.get('password') == password):
                 print("get in")
+                self.window = QtWidgets.QMainWindow()
+                self.ui = Ui_Regis()
+                self.ui.setupUi(self.window)
+                Form.hide()
+                self.window.show()
+
             else:
-                dialog = QDialog(self)
+                dialog = QDialog(Form)
                 layout = QVBoxLayout()
 
-                label = QLabel(self)
+                label = QLabel(Form)
                 label.setText("Incorrect password")
                 layout.addWidget(label)
 
@@ -87,17 +93,19 @@ class Ui_Form(object):
 
                 print("incorrect password")
         else:
-            print("username is not exist")
+            dialog = QDialog(Form)
+            layout = QVBoxLayout()
 
+            label = QLabel(Form)
+            label.setText("username is not exist")
+            layout.addWidget(label)
 
-    def checkUsername(self,username):
-        teachers = self.db.get('/Teachers',None)
-        if (username in teachers):
-            print("username is already exist")
-            return 0
-        return 1
+            close_button = QPushButton('Close')
+            close_button.clicked.connect(dialog.close)
+            layout.addWidget(close_button)
+            dialog.setLayout(layout)
 
-
+            dialog.show()
 
 
 
@@ -105,7 +113,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = Ui_Login()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

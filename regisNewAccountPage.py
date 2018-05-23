@@ -5,11 +5,14 @@
 # Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
-
+from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
+from firebase import firebase
+from subYearInfoPage import Ui_SubYear
 
-class Ui_Form(object):
+class Ui_Regis(object):
     def setupUi(self, Form):
+        self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         Form.setObjectName("Form")
         Form.resize(1271, 823)
         self.label = QtWidgets.QLabel(Form)
@@ -62,6 +65,7 @@ class Ui_Form(object):
         font.setPointSize(20)
         self.nextButton.setFont(font)
         self.nextButton.setObjectName("nextButton")
+        self.nextButton.clicked.connect(self.next)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -78,12 +82,71 @@ class Ui_Form(object):
         self.roleEntry.setItemText(1, _translate("Form", "Head Teacher"))
         self.nextButton.setText(_translate("Form", "Next"))
 
+    def next(self):
+        if self.validate():
+            print("yes")
+            first = self.fNameEntry.text()
+            last = self.lNameEntry.text()
+            username = self.uNameEntry.text()
+            role = self.roleEntry.currentText()
+
+            self.window = QtWidgets.QMainWindow()
+            self.ui = Ui_SubYear()
+            self.ui.setupUi(self.window,first,last,username,role)
+            Form.hide()
+            self.window.show()
+
+
+    def validate(self):
+        if self.fNameEntry.text() == '':
+            print("please enter first name")
+            return 0
+        elif self.lNameEntry.text() == '':
+            print("please enter last name")
+            return 0
+        elif self.uNameEntry.text() == '':
+            print("please enter username")
+            return 0
+        self.username = self.uNameEntry.text()
+        teachers = self.db.get('/Teachers', None)
+        count = 1
+        while (self.username in teachers):
+            count += 1
+            self.username = self.fNameEntry.text()+self.lNameEntry.text()[0:count]
+
+        self.dialog = QDialog(Form)
+        layout = QVBoxLayout()
+
+        label = QLabel(Form)
+        label.setText("This is suggestion username " + self.username)
+        layout.addWidget(label)
+
+        confirm_button = QPushButton('Confirm')
+        confirm_button.clicked.connect(self.ConfirmPassword)
+        layout.addWidget(confirm_button)
+        self.dialog.setLayout(layout)
+
+        close_button = QPushButton('No')
+        close_button.clicked.connect(self.dialog.close)
+        layout.addWidget(close_button)
+        self.dialog.setLayout(layout)
+
+        self.dialog.show()
+
+        return 1
+
+    def ConfirmPassword(self):
+        self.uNameEntry.setText(self.username)
+        self.dialog.close()
+
+
+
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = Ui_Regis()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
