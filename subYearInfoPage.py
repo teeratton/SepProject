@@ -218,7 +218,6 @@ class Ui_SubYear(object):
         self.bandCheck.setText(_translate("Form", "Band"))
         self.chiorCheck.setText(_translate("Form", "Choir"))
         self.doneButton.setText(_translate("Form", "Done"))
-        print(self.first)
         self.doneButton.clicked.connect(self.done)
 
     def done(self):
@@ -228,7 +227,9 @@ class Ui_SubYear(object):
             for x in years.split(','):
                 self.subjects.append("math"+x)
             print(self.subjects)
-        
+
+
+
 
 
 
