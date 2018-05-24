@@ -7,53 +7,55 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
 
 class Ui_Form(object):
     def setupUi(self, Form,t):
         self.t = t
         Form.setObjectName("Form")
-        Form.resize(1265, 880)
+        Form.resize(1265, 842)
+        self.Form = Form
         self.label = QtWidgets.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(320, -10, 651, 161))
+        self.label.setGeometry(QtCore.QRect(320, -20, 651, 161))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.comboBox = QtWidgets.QComboBox(Form)
-        self.comboBox.setGeometry(QtCore.QRect(50, 190, 271, 51))
+        self.comboBox.setGeometry(QtCore.QRect(50, 170, 271, 51))
         self.comboBox.setObjectName("comboBox")
         self.label_2 = QtWidgets.QLabel(Form)
-        self.label_2.setGeometry(QtCore.QRect(50, 130, 261, 51))
+        self.label_2.setGeometry(QtCore.QRect(50, 110, 261, 51))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
-        self.questionText = QtWidgets.QTextBrowser(Form)
-        self.questionText.setGeometry(QtCore.QRect(360, 190, 851, 251))
+        self.questionText = QtWidgets.QTextEdit(Form)
+        self.questionText.setGeometry(QtCore.QRect(360, 170, 851, 221))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.questionText.setFont(font)
         self.questionText.setObjectName("questionText")
         self.label_3 = QtWidgets.QLabel(Form)
-        self.label_3.setGeometry(QtCore.QRect(360, 130, 161, 51))
+        self.label_3.setGeometry(QtCore.QRect(360, 110, 161, 51))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(Form)
-        self.label_4.setGeometry(QtCore.QRect(50, 310, 221, 111))
+        self.label_4.setGeometry(QtCore.QRect(50, 270, 221, 111))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(Form)
-        self.label_5.setGeometry(QtCore.QRect(50, 380, 301, 51))
+        self.label_5.setGeometry(QtCore.QRect(50, 340, 301, 51))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.groupBox = QtWidgets.QGroupBox(Form)
-        self.groupBox.setGeometry(QtCore.QRect(40, 430, 171, 351))
+        self.groupBox.setGeometry(QtCore.QRect(40, 390, 171, 351))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.groupBox.setFont(font)
@@ -82,34 +84,26 @@ class Ui_Form(object):
         font.setPointSize(12)
         self.dRadio.setFont(font)
         self.dRadio.setObjectName("dRadio")
-        self.aRadio.raise_()
-        self.bRadio.raise_()
-        self.cRadio.raise_()
-        self.dRadio.raise_()
-        self.aRadio.raise_()
-        self.bRadio.raise_()
-        self.cRadio.raise_()
-        self.dRadio.raise_()
         self.aText = QtWidgets.QTextEdit(Form)
-        self.aText.setGeometry(QtCore.QRect(270, 470, 941, 61))
+        self.aText.setGeometry(QtCore.QRect(270, 430, 941, 61))
         self.aText.setObjectName("aText")
         self.bText = QtWidgets.QTextEdit(Form)
-        self.bText.setGeometry(QtCore.QRect(270, 550, 941, 61))
+        self.bText.setGeometry(QtCore.QRect(270, 510, 941, 61))
         self.bText.setObjectName("bText")
         self.cText = QtWidgets.QTextEdit(Form)
-        self.cText.setGeometry(QtCore.QRect(270, 630, 941, 61))
+        self.cText.setGeometry(QtCore.QRect(270, 590, 941, 61))
         self.cText.setObjectName("cText")
         self.dText = QtWidgets.QTextEdit(Form)
-        self.dText.setGeometry(QtCore.QRect(270, 710, 941, 61))
+        self.dText.setGeometry(QtCore.QRect(270, 670, 941, 61))
         self.dText.setObjectName("dText")
         self.doneButton = QtWidgets.QPushButton(Form)
-        self.doneButton.setGeometry(QtCore.QRect(1090, 800, 121, 51))
+        self.doneButton.setGeometry(QtCore.QRect(1090, 760, 121, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.doneButton.setFont(font)
         self.doneButton.setObjectName("doneButton")
         self.backButton = QtWidgets.QPushButton(Form)
-        self.backButton.setGeometry(QtCore.QRect(40, 800, 121, 51))
+        self.backButton.setGeometry(QtCore.QRect(40, 760, 121, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.backButton.setFont(font)
@@ -117,6 +111,23 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+        self.doneButton.clicked.connect(self.done)
+
+
+
+
+
+        for x in self.t.getSubjects() :
+            self.comboBox.addItem(self.t.getSubjects().get(x))
+
+        self.questionText.setText("")
+        self.aText.setText("")
+        self.bText.setText("")
+        self.cText.setText("")
+        self.dText.setText("")
+
+
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -158,6 +169,47 @@ class Ui_Form(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
         self.doneButton.setText(_translate("Form", "Done"))
         self.backButton.setText(_translate("Form", "Back"))
+
+    def done(self):
+        self.subId = self.comboBox.currentText()
+        self.question = self.questionText.toPlainText()
+        self.ansA = self.aText.toPlainText()
+        self.ansB = self.bText.toPlainText()
+        self.ansC = self.cText.toPlainText()
+        self.ansD = self.dText.toPlainText()
+        if(self.aRadio.isChecked()):
+            self.correctAnswer = self.aRadio.text()
+        if (self.bRadio.isChecked()):
+            self.correctAnswer = self.bRadio.text()
+        if (self.cRadio.isChecked()):
+            self.correctAnswer = self.cRadio.text()
+        if (self.dRadio.isChecked()):
+            self.correctAnswer = self.dRadio.text()
+
+        print(self.subId)
+        print(self.question)
+        print(self.ansA)
+        print(self.ansB)
+        print(self.ansC)
+        print(self.ansD)
+        print(self.correctAnswer)
+
+        dialog = QDialog(self.Form)
+        layout = QVBoxLayout()
+
+        label = QLabel(self.Form)
+        label.setText("Upload successful")
+        layout.addWidget(label)
+
+        close_button = QPushButton('Close')
+        close_button.clicked.connect(dialog.close)
+        layout.addWidget(close_button)
+        dialog.setLayout(layout)
+
+        dialog.show()
+
+
+
 
 
 if __name__ == "__main__":

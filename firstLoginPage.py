@@ -5,13 +5,13 @@
 # Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
+
 from firebase import firebase
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from regisNewAccountPage import Ui_Regis
 import teacherPage
 from teacher import teacher
-
 
 class Ui_Login(object):
     def setupUi(self, Form):
@@ -52,7 +52,6 @@ class Ui_Login(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
