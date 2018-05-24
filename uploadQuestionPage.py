@@ -8,10 +8,15 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-
+from question import question
+import random
+import string
+from firebase import firebase
 class Ui_Form(object):
     def setupUi(self, Form,t):
+        self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         self.t = t
+        self.quesId = ""
         Form.setObjectName("Form")
         Form.resize(1265, 842)
         self.Form = Form
@@ -193,6 +198,19 @@ class Ui_Form(object):
         print(self.ansC)
         print(self.ansD)
         print(self.correctAnswer)
+        print(self.t.getUsername())
+
+        self.generateQuestionID()
+
+        self.q = question(self.subId,self.question,self.ansA,self.ansB,self.ansC,self.ansD,self.correctAnswer,"",self.quesId,self.t.username)
+
+        self.pendingQuestion = {'subId' : self.subId , 'question' : self.question , 'ansA' : self.ansA , 'ansB' : self.ansB , 'ansC' : self.ansC
+            , 'ansD' : self.ansD , 'correctAnswer' : self.correctAnswer , 'level' : "" , 'quesId' : self.quesId , 'teacherUsername' : self.t.username}
+
+
+        self.db.put('PendingQuestions', self.quesId, self.pendingQuestion)
+
+
 
         dialog = QDialog(self.Form)
         layout = QVBoxLayout()
@@ -208,6 +226,11 @@ class Ui_Form(object):
 
         dialog.show()
 
+    def generateQuestionID(self):
+        randomNum = ""
+        for i in range(5):
+            randomNum += random.choice(string.digits)
+        self.quesId += self.t.getUsername() + randomNum
 
 
 

@@ -77,7 +77,7 @@ class Ui_Login(object):
                     self.window.show()
 
                 if(id.get('role') == "Teacher"):
-                    self.t = teacher(id.get('first'),id.get('last'),id.get('username'),id.get('password'),id.get('subjects'),)
+                    self.t = teacher(id.get('first'),id.get('last'),username,id.get('password'),id.get('subjects'),)
                     self.window = QtWidgets.QMainWindow()
                     self.ui = teacherPage.Ui_Form()
                     self.ui.setupUi(self.window,self.t)
