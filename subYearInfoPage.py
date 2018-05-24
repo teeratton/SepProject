@@ -12,6 +12,7 @@ import random
 import string
 from firebase import firebase
 import regisNewAccountPage
+from teacher import teacher
 
 
 
@@ -190,8 +191,10 @@ class Ui_SubYear(object):
         print(self.subjects)
         print(self.password)
 
-        self.teacher = {'first': self.first, 'last': self.last, 'password': self.password, 'role': self.role,
-                    'subjects': self.subjects}
+        self.t = teacher(self.first,self.last,self.username,self.password,self.subjects)
+
+        self.teacher = {'first': self.t.first, 'last': self.t.last, 'password': self.t.password, 'role': self.role,
+                    'subjects': self.t.subjects}
 
         self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()

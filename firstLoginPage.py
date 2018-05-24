@@ -9,6 +9,8 @@ from firebase import firebase
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from regisNewAccountPage import Ui_Regis
+import teacherPage
+from teacher import teacher
 
 
 class Ui_Login(object):
@@ -68,12 +70,21 @@ class Ui_Login(object):
         if(username in usernames):
             id = self.db.get('/Teachers/' + username, None)
             if (id.get('password') == password):
-                if( id.get('role') == "Admin"):
+                if(id.get('role') == "Admin"):
                     self.window = QtWidgets.QMainWindow()
                     self.ui = Ui_Regis()
                     self.ui.setupUi(self.window)
                     Form.hide()
                     self.window.show()
+
+                if(id.get('role') == "Teacher"):
+                    self.t = teacher(id.get('first'),id.get('last'),id.get('username'),id.get('password'),id.get('subjects'),)
+                    self.window = QtWidgets.QMainWindow()
+                    self.ui = teacherPage.Ui_Form()
+                    self.ui.setupUi(self.window,self.t)
+                    Form.hide()
+                    self.window.show()
+
 
             else:
                 dialog = QDialog(Form)
