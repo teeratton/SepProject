@@ -175,56 +175,63 @@ class Ui_Form(object):
         self.doneButton.setText(_translate("Form", "Done"))
         self.backButton.setText(_translate("Form", "Back"))
 
+    def validate(self):
+        if self.questionText.toPlainText() == "" and self.aText.toPlainText() == "" and self.bText.toPlainText() == "" and self.cText.toPlainText() == "" and self.dText.toPlainText() == "" :
+            print("please enter adasd")
+            return 0
+        if(self.aRadio.isChecked() or self.bRadio.isChecked() or self.cRadio.isChecked() or self.dRadio.isChecked()):
+            return 1
+        else:
+            print("enter correct ans")
+            return 0
+
+
+
+
     def done(self):
-        self.subId = self.comboBox.currentText()
-        self.question = self.questionText.toPlainText()
-        self.ansA = self.aText.toPlainText()
-        self.ansB = self.bText.toPlainText()
-        self.ansC = self.cText.toPlainText()
-        self.ansD = self.dText.toPlainText()
-        if(self.aRadio.isChecked()):
-            self.correctAnswer = self.aRadio.text()
-        if (self.bRadio.isChecked()):
-            self.correctAnswer = self.bRadio.text()
-        if (self.cRadio.isChecked()):
-            self.correctAnswer = self.cRadio.text()
-        if (self.dRadio.isChecked()):
-            self.correctAnswer = self.dRadio.text()
-
-        print(self.subId)
-        print(self.question)
-        print(self.ansA)
-        print(self.ansB)
-        print(self.ansC)
-        print(self.ansD)
-        print(self.correctAnswer)
-        print(self.t.getUsername())
-
-        self.generateQuestionID()
-
-        self.q = question(self.subId,self.question,self.ansA,self.ansB,self.ansC,self.ansD,self.correctAnswer,"",self.quesId,self.t.username)
-
-        self.pendingQuestion = {'subId' : self.subId , 'question' : self.question , 'ansA' : self.ansA , 'ansB' : self.ansB , 'ansC' : self.ansC
-            , 'ansD' : self.ansD , 'correctAnswer' : self.correctAnswer , 'level' : "" , 'quesId' : self.quesId , 'teacherUsername' : self.t.username}
-
-
-        self.db.put('PendingQuestions', self.quesId, self.pendingQuestion)
+        if self.validate():
+            self.subId = self.comboBox.currentText()
+            self.question = self.questionText.toPlainText()
+            self.ansA = self.aText.toPlainText()
+            self.ansB = self.bText.toPlainText()
+            self.ansC = self.cText.toPlainText()
+            self.ansD = self.dText.toPlainText()
+            if(self.aRadio.isChecked()):
+                self.correctAnswer = self.aRadio.text()
+            if (self.bRadio.isChecked()):
+                self.correctAnswer = self.bRadio.text()
+            if (self.cRadio.isChecked()):
+                self.correctAnswer = self.cRadio.text()
+            if (self.dRadio.isChecked()):
+                self.correctAnswer = self.dRadio.text()
 
 
 
-        dialog = QDialog(self.Form)
-        layout = QVBoxLayout()
+            self.generateQuestionID()
 
-        label = QLabel(self.Form)
-        label.setText("Upload successful")
-        layout.addWidget(label)
+            self.q = question(self.subId,self.question,self.ansA,self.ansB,self.ansC,self.ansD,self.correctAnswer,"",self.quesId,self.t.username)
 
-        close_button = QPushButton('Close')
-        close_button.clicked.connect(dialog.close)
-        layout.addWidget(close_button)
-        dialog.setLayout(layout)
+            self.pendingQuestion = {'subId' : self.subId , 'question' : self.question , 'ansA' : self.ansA , 'ansB' : self.ansB , 'ansC' : self.ansC
+                , 'ansD' : self.ansD , 'correctAnswer' : self.correctAnswer , 'level' : "" , 'quesId' : self.quesId , 'teacherUsername' : self.t.username}
 
-        dialog.show()
+
+            self.db.put('PendingQuestions', self.quesId, self.pendingQuestion)
+
+
+
+            dialog = QDialog(self.Form)
+            layout = QVBoxLayout()
+
+            label = QLabel(self.Form)
+            label.setText("Upload successful")
+            layout.addWidget(label)
+    
+            close_button = QPushButton('Close')
+            close_button.clicked.connect(dialog.close)
+            layout.addWidget(close_button)
+            dialog.setLayout(layout)
+
+            dialog.show()
 
     def generateQuestionID(self):
         randomNum = ""
