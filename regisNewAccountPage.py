@@ -71,6 +71,75 @@ class Ui_Regis(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+    def reOpen(self, Form,first,last,username,role):
+        self.first = first
+        self.last = last
+        self.username = username
+        self.role = role
+        self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
+        Form.setObjectName("Form")
+        Form.resize(1271, 823)
+        self.Form = Form
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setGeometry(QtCore.QRect(160, 30, 1051, 191))
+        font = QtGui.QFont()
+        font.setPointSize(45)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.fNameEntry = QtWidgets.QLineEdit(Form)
+        self.fNameEntry.setGeometry(QtCore.QRect(520, 260, 501, 61))
+        self.fNameEntry.setObjectName("fNameEntry")
+        self.fNameLabel = QtWidgets.QLabel(Form)
+        self.fNameLabel.setGeometry(QtCore.QRect(240, 250, 221, 71))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.fNameLabel.setFont(font)
+        self.fNameLabel.setObjectName("fNameLabel")
+        self.lNameLabel = QtWidgets.QLabel(Form)
+        self.lNameLabel.setGeometry(QtCore.QRect(240, 360, 221, 71))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.lNameLabel.setFont(font)
+        self.lNameLabel.setObjectName("lNameLabel")
+        self.lNameEntry = QtWidgets.QLineEdit(Form)
+        self.lNameEntry.setGeometry(QtCore.QRect(520, 370, 501, 61))
+        self.lNameEntry.setObjectName("lNameEntry")
+        self.uNameLabel = QtWidgets.QLabel(Form)
+        self.uNameLabel.setGeometry(QtCore.QRect(240, 470, 221, 71))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.uNameLabel.setFont(font)
+        self.uNameLabel.setObjectName("uNameLabel")
+        self.uNameEntry = QtWidgets.QLineEdit(Form)
+        self.uNameEntry.setGeometry(QtCore.QRect(520, 480, 501, 61))
+        self.uNameEntry.setObjectName("uNameEntry")
+        self.roleLabel = QtWidgets.QLabel(Form)
+        self.roleLabel.setGeometry(QtCore.QRect(240, 580, 221, 71))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.roleLabel.setFont(font)
+        self.roleLabel.setObjectName("roleLabel")
+        self.roleEntry = QtWidgets.QComboBox(Form)
+        self.roleEntry.setGeometry(QtCore.QRect(520, 590, 231, 61))
+        self.roleEntry.setObjectName("roleEntry")
+        self.roleEntry.addItem("")
+        self.roleEntry.addItem("")
+        self.nextButton = QtWidgets.QPushButton(Form)
+        self.nextButton.setGeometry(QtCore.QRect(1030, 710, 191, 71))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.nextButton.setFont(font)
+        self.nextButton.setObjectName("nextButton")
+        self.nextButton.clicked.connect(self.next)
+
+        self.fNameEntry.setText(self.first)
+        self.lNameEntry.setText(self.last)
+        self.uNameEntry.setText(self.username)
+        self.roleEntry.setCurrentText(self.role)
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
@@ -82,6 +151,7 @@ class Ui_Regis(object):
         self.roleEntry.setItemText(0, _translate("Form", "Teacher"))
         self.roleEntry.setItemText(1, _translate("Form", "Head Teacher"))
         self.nextButton.setText(_translate("Form", "Next"))
+
 
     def next(self):
         if self.validate():
@@ -122,6 +192,7 @@ class Ui_Regis(object):
         while (self.username in self.teachers):
             count += 1
             self.username = self.fNameEntry.text()+self.lNameEntry.text()[0:count]
+
         self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()
 

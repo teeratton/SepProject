@@ -11,6 +11,9 @@ from PyQt5.QtWidgets import *
 import random
 import string
 from firebase import firebase
+import regisNewAccountPage
+
+
 
 class Ui_SubYear(object):
     def setupUi(self, Form,first,last,username,role):
@@ -29,202 +32,118 @@ class Ui_SubYear(object):
         font.setPointSize(28)
         self.label.setFont(font)
         self.label.setObjectName("label")
-        self.sciCheck = QtWidgets.QCheckBox(self.Form)
-        self.sciCheck.setGeometry(QtCore.QRect(820, 350, 251, 61))
+        self.scienceCheck = QtWidgets.QCheckBox(Form)
+        self.scienceCheck.setGeometry(QtCore.QRect(670, 400, 251, 61))
         font = QtGui.QFont()
-        font.setPointSize(14)
-        self.sciCheck.setFont(font)
-        self.sciCheck.setObjectName("sciCheck")
-        self.mathCheck = QtWidgets.QCheckBox(self.Form)
-        self.mathCheck.setGeometry(QtCore.QRect(400, 550, 231, 61))
+        font.setPointSize(16)
+        self.scienceCheck.setFont(font)
+        self.scienceCheck.setObjectName("scienceCheck")
+        self.mathCheck = QtWidgets.QCheckBox(Form)
+        self.mathCheck.setGeometry(QtCore.QRect(110, 610, 231, 61))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(16)
         self.mathCheck.setFont(font)
         self.mathCheck.setObjectName("mathCheck")
-        self.hisCheck = QtWidgets.QCheckBox(self.Form)
-        self.hisCheck.setGeometry(QtCore.QRect(400, 450, 121, 61))
+        self.thaiCheck = QtWidgets.QCheckBox(Form)
+        self.thaiCheck.setGeometry(QtCore.QRect(680, 200, 121, 61))
         font = QtGui.QFont()
-        font.setPointSize(14)
-        self.hisCheck.setFont(font)
-        self.hisCheck.setObjectName("hisCheck")
-        self.musicCheck = QtWidgets.QCheckBox(self.Form)
-        self.musicCheck.setGeometry(QtCore.QRect(400, 650, 121, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.musicCheck.setFont(font)
-        self.musicCheck.setObjectName("musicCheck")
-        self.artCheck = QtWidgets.QCheckBox(self.Form)
-        self.artCheck.setGeometry(QtCore.QRect(20, 150, 121, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.artCheck.setFont(font)
-        self.artCheck.setObjectName("artCheck")
-        self.thaiCheck = QtWidgets.QCheckBox(self.Form)
-        self.thaiCheck.setGeometry(QtCore.QRect(820, 550, 121, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(16)
         self.thaiCheck.setFont(font)
         self.thaiCheck.setObjectName("thaiCheck")
-        self.engCheck = QtWidgets.QCheckBox(self.Form)
-        self.engCheck.setGeometry(QtCore.QRect(400, 250, 121, 61))
+        self.engCheck = QtWidgets.QCheckBox(Form)
+        self.engCheck.setGeometry(QtCore.QRect(130, 200, 141, 61))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(16)
         self.engCheck.setFont(font)
         self.engCheck.setObjectName("engCheck")
-        self.peCheck = QtWidgets.QCheckBox(self.Form)
-        self.peCheck.setGeometry(QtCore.QRect(820, 150, 261, 61))
+        self.socialCheck = QtWidgets.QCheckBox(Form)
+        self.socialCheck.setGeometry(QtCore.QRect(670, 610, 221, 61))
         font = QtGui.QFont()
-        font.setPointSize(14)
-        self.peCheck.setFont(font)
-        self.peCheck.setObjectName("peCheck")
-        self.religionCheck = QtWidgets.QCheckBox(self.Form)
-        self.religionCheck.setGeometry(QtCore.QRect(820, 650, 241, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.religionCheck.setFont(font)
-        self.religionCheck.setObjectName("religionCheck")
-        self.socialCheck = QtWidgets.QCheckBox(self.Form)
-        self.socialCheck.setGeometry(QtCore.QRect(820, 450, 221, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(16)
         self.socialCheck.setFont(font)
         self.socialCheck.setObjectName("socialCheck")
-        self.compCheck = QtWidgets.QCheckBox(Form)
-        self.compCheck.setGeometry(QtCore.QRect(20, 650, 221, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.compCheck.setFont(font)
-        self.compCheck.setObjectName("compCheck")
         self.geoCheck = QtWidgets.QCheckBox(Form)
-        self.geoCheck.setGeometry(QtCore.QRect(400, 350, 221, 61))
+        self.geoCheck.setGeometry(QtCore.QRect(120, 400, 221, 61))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(16)
         self.geoCheck.setFont(font)
         self.geoCheck.setObjectName("geoCheck")
-        self.bioCheck = QtWidgets.QCheckBox(Form)
-        self.bioCheck.setGeometry(QtCore.QRect(20, 350, 221, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.bioCheck.setFont(font)
-        self.bioCheck.setObjectName("bioCheck")
-        self.chemCheck = QtWidgets.QCheckBox(Form)
-        self.chemCheck.setGeometry(QtCore.QRect(20, 450, 221, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.chemCheck.setFont(font)
-        self.chemCheck.setObjectName("chemCheck")
-        self.physicCheck = QtWidgets.QCheckBox(Form)
-        self.physicCheck.setGeometry(QtCore.QRect(820, 250, 221, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.physicCheck.setFont(font)
-        self.physicCheck.setObjectName("physicCheck")
-        self.dramaCheck = QtWidgets.QCheckBox(Form)
-        self.dramaCheck.setGeometry(QtCore.QRect(400, 150, 221, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.dramaCheck.setFont(font)
-        self.dramaCheck.setObjectName("dramaCheck")
-        self.bandCheck = QtWidgets.QCheckBox(Form)
-        self.bandCheck.setGeometry(QtCore.QRect(20, 250, 221, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.bandCheck.setFont(font)
-        self.bandCheck.setObjectName("bandCheck")
-        self.chiorCheck = QtWidgets.QCheckBox(Form)
-        self.chiorCheck.setGeometry(QtCore.QRect(20, 550, 221, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.chiorCheck.setFont(font)
-        self.chiorCheck.setObjectName("chiorCheck")
-        self.artEntry = QtWidgets.QLineEdit(Form)
-        self.artEntry.setGeometry(QtCore.QRect(190, 160, 181, 41))
-        self.artEntry.setObjectName("artEntry")
-        self.bandEntry = QtWidgets.QLineEdit(Form)
-        self.bandEntry.setGeometry(QtCore.QRect(190, 260, 181, 41))
-        self.bandEntry.setObjectName("bandEntry")
-        self.bioEntry = QtWidgets.QLineEdit(Form)
-        self.bioEntry.setGeometry(QtCore.QRect(190, 360, 181, 41))
-        self.bioEntry.setObjectName("bioEntry")
-        self.chemEntry = QtWidgets.QLineEdit(Form)
-        self.chemEntry.setGeometry(QtCore.QRect(190, 460, 181, 41))
-        self.chemEntry.setObjectName("chemEntry")
-        self.choirEntry = QtWidgets.QLineEdit(Form)
-        self.choirEntry.setGeometry(QtCore.QRect(190, 560, 181, 41))
-        self.choirEntry.setObjectName("choirEntry")
-        self.compEntry = QtWidgets.QLineEdit(Form)
-        self.compEntry.setGeometry(QtCore.QRect(190, 660, 181, 41))
-        self.compEntry.setObjectName("compEntry")
-        self.dramaEntry = QtWidgets.QLineEdit(Form)
-        self.dramaEntry.setGeometry(QtCore.QRect(610, 160, 181, 41))
-        self.dramaEntry.setObjectName("dramaEntry")
-        self.engEntry = QtWidgets.QLineEdit(Form)
-        self.engEntry.setGeometry(QtCore.QRect(610, 260, 181, 41))
-        self.engEntry.setObjectName("engEntry")
-        self.geoEntry = QtWidgets.QLineEdit(Form)
-        self.geoEntry.setGeometry(QtCore.QRect(610, 360, 181, 41))
-        self.geoEntry.setObjectName("geoEntry")
-        self.hisEntry = QtWidgets.QLineEdit(Form)
-        self.hisEntry.setGeometry(QtCore.QRect(610, 460, 181, 41))
-        self.hisEntry.setObjectName("hisEntry")
-        self.mathEntry = QtWidgets.QLineEdit(Form)
-        self.mathEntry.setGeometry(QtCore.QRect(610, 560, 181, 41))
-        self.mathEntry.setObjectName("mathEntry")
-        self.musicEntry = QtWidgets.QLineEdit(Form)
-        self.musicEntry.setGeometry(QtCore.QRect(610, 660, 181, 41))
-        self.musicEntry.setObjectName("musicEntry")
-        self.religionEntry = QtWidgets.QLineEdit(Form)
-        self.religionEntry.setGeometry(QtCore.QRect(1060, 660, 181, 41))
-        self.religionEntry.setObjectName("religionEntry")
-        self.thaiEntry = QtWidgets.QLineEdit(Form)
-        self.thaiEntry.setGeometry(QtCore.QRect(1060, 560, 181, 41))
-        self.thaiEntry.setObjectName("thaiEntry")
-        self.socialEntry = QtWidgets.QLineEdit(Form)
-        self.socialEntry.setGeometry(QtCore.QRect(1060, 460, 181, 41))
-        self.socialEntry.setObjectName("socialEntry")
-        self.sciEntry = QtWidgets.QLineEdit(Form)
-        self.sciEntry.setGeometry(QtCore.QRect(1060, 360, 181, 41))
-        self.sciEntry.setObjectName("sciEntry")
-        self.physicEntry = QtWidgets.QLineEdit(Form)
-        self.physicEntry.setGeometry(QtCore.QRect(1060, 260, 181, 41))
-        self.physicEntry.setObjectName("physicEntry")
-        self.peEntry = QtWidgets.QLineEdit(Form)
-        self.peEntry.setGeometry(QtCore.QRect(1060, 160, 181, 41))
-        self.peEntry.setObjectName("peEntry")
+
         self.doneButton = QtWidgets.QPushButton(Form)
-        self.doneButton.setGeometry(QtCore.QRect(1100, 740, 131, 61))
+        self.doneButton.setGeometry(QtCore.QRect(1090, 730, 131, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.doneButton.setFont(font)
         self.doneButton.setObjectName("doneButton")
-        
+
+        self.backButton = QtWidgets.QPushButton(Form)
+        self.backButton.setGeometry(QtCore.QRect(120, 730, 131, 61))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.backButton.setFont(font)
+        self.backButton.setObjectName("backButton")
+
+        self.geoEntry = QtWidgets.QLineEdit(Form)
+        self.geoEntry.setGeometry(QtCore.QRect(370, 400, 241, 61))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.geoEntry.setFont(font)
+        self.geoEntry.setObjectName("geoEntry")
+        self.mathEntry = QtWidgets.QLineEdit(Form)
+        self.mathEntry.setGeometry(QtCore.QRect(370, 610, 241, 61))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.mathEntry.setFont(font)
+        self.mathEntry.setObjectName("mathEntry")
+        self.engEntry = QtWidgets.QLineEdit(Form)
+        self.engEntry.setGeometry(QtCore.QRect(370, 200, 241, 61))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.engEntry.setFont(font)
+        self.engEntry.setObjectName("engEntry")
+        self.thaiEntry = QtWidgets.QLineEdit(Form)
+        self.thaiEntry.setGeometry(QtCore.QRect(940, 200, 241, 61))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.thaiEntry.setFont(font)
+        self.thaiEntry.setObjectName("thaiEntry")
+        self.scienceEntry = QtWidgets.QLineEdit(Form)
+        self.scienceEntry.setGeometry(QtCore.QRect(940, 400, 241, 61))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.scienceEntry.setFont(font)
+        self.scienceEntry.setObjectName("scienceEntry")
+        self.socialEntry = QtWidgets.QLineEdit(Form)
+        self.socialEntry.setGeometry(QtCore.QRect(940, 610, 241, 61))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.socialEntry.setFont(font)
+        self.socialEntry.setObjectName("socialEntry")
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-    
-    def retranslateUi(self, Form):
+
+    def retranslateUi(self, hisEntry):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        hisEntry.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "Subject and Year Information"))
-        self.sciCheck.setText(_translate("Form", "Science"))
+        self.scienceCheck.setText(_translate("Form", "Science"))
         self.mathCheck.setText(_translate("Form", "Mathematics"))
-        self.hisCheck.setText(_translate("Form", "History"))
-        self.musicCheck.setText(_translate("Form", "Music"))
-        self.artCheck.setText(_translate("Form", "Art"))
         self.thaiCheck.setText(_translate("Form", "Thai"))
         self.engCheck.setText(_translate("Form", "English"))
-        self.peCheck.setText(_translate("Form", "P.E."))
-        self.religionCheck.setText(_translate("Form", "Religion Studies"))
         self.socialCheck.setText(_translate("Form", "Social Studies"))
-        self.compCheck.setText(_translate("Form", "Computer "))
         self.geoCheck.setText(_translate("Form", "Geography"))
-        self.bioCheck.setText(_translate("Form", "Biology"))
-        self.chemCheck.setText(_translate("Form", "Chemistry"))
-        self.physicCheck.setText(_translate("Form", "Physics"))
-        self.dramaCheck.setText(_translate("Form", "Drama"))
-        self.bandCheck.setText(_translate("Form", "Band"))
-        self.chiorCheck.setText(_translate("Form", "Choir"))
         self.doneButton.setText(_translate("Form", "Done"))
+        self.backButton.setText(_translate("Form","Back"))
         self.doneButton.clicked.connect(self.done)
+        self.backButton.clicked.connect(self.back)
+
+    def back(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = regisNewAccountPage.Ui_Regis()
+        self.ui.reOpen(self.window, self.first, self.last, self.username, self.role)
+        self.Form.hide()
+        self.window.show()
     
     def done(self):
         count = 1
@@ -235,30 +154,11 @@ class Ui_SubYear(object):
                 count+=1
 
 
-        if (self.sciCheck.isChecked()):
-            years = self.sciEntry.text()
+        if (self.scienceCheck.isChecked()):
+            years = self.scienceEntry.text()
             for x in years.split(','):
                 self.subjects.update({"sub"+str(count):"Science"+x})
                 count+=1
-
-        if (self.hisCheck.isChecked()):
-            years = self.hisEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub"+str(count):"History"+x})
-                count+=1
-
-
-        if (self.musicCheck.isChecked()):
-            years = self.musicEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Music" + x})
-                count += 1
-
-        if (self.artCheck.isChecked()):
-            years = self.artEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Art" + x})
-                count += 1
 
         if (self.thaiCheck.isChecked()):
             years = self.thaiEntry.text()
@@ -272,70 +172,16 @@ class Ui_SubYear(object):
                 self.subjects.update({"sub" + str(count): "English" + x})
                 count += 1
 
-        if (self.peCheck.isChecked()):
-            years = self.peEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "PE" + x})
-                count += 1
-
-        if (self.religionCheck.isChecked()):
-            years = self.religionEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Religion" + x})
-                count += 1
-
         if (self.socialCheck.isChecked()):
             years = self.socialEntry.text()
             for x in years.split(','):
                 self.subjects.update({"sub" + str(count): "Social Studies" + x})
                 count += 1
 
-        if (self.compCheck.isChecked()):
-            years = self.compEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Computer" + x})
-                count += 1
-
         if (self.geoCheck.isChecked()):
             years = self.geoEntry.text()
             for x in years.split(','):
                 self.subjects.update({"sub" + str(count): "Geography" + x})
-                count += 1
-
-        if (self.bioCheck.isChecked()):
-            years = self.bioEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Biography" + x})
-                count += 1
-
-        if (self.chemCheck.isChecked()):
-            years = self.chemEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Chemistry" + x})
-                count += 1
-
-        if (self.physicCheck.isChecked()):
-            years = self.physicEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Physic" + x})
-                count += 1
-
-        if (self.dramaCheck.isChecked()):
-            years = self.dramaEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Drama" + x})
-                count += 1
-
-        if (self.bandCheck.isChecked()):
-            years = self.bandEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Band" + x})
-                count += 1
-
-        if (self.chiorCheck.isChecked()):
-            years = self.choirEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Choir" + x})
                 count += 1
         else:
             print("please enter subject")
@@ -351,8 +197,14 @@ class Ui_SubYear(object):
         layout = QVBoxLayout()
 
         subjectList = ""
+
         for i in self.subjects:
-            subjectList += self.subjects.get(i) + ", "
+            if i == "sub1":
+                subjectList += self.subjects.get(i)
+            else:
+                subjectList += ", " + self.subjects.get(i)
+
+
         lusername = QLabel(self.Form)
         lusername.setText("Username : " + self.username + "\n" + "Password : " + self.password + "\n" + "First name: " + self.first +
                           "\n" + "Last name: " + self.last + "\n" + "Role: " + self.role + "\n" + "Subject: " + subjectList )

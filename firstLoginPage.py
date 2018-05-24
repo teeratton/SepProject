@@ -64,16 +64,16 @@ class Ui_Login(object):
         print("login")
         username = self.unameEntry.text()
         password = self.pwordEntry.text()
-        usernames = self.db.get('/Login',None)
+        usernames = self.db.get('/Teachers',None)
         if(username in usernames):
-            id = self.db.get('/Login/' + username, None)
+            id = self.db.get('/Teachers/' + username, None)
             if (id.get('password') == password):
-                print("get in")
-                self.window = QtWidgets.QMainWindow()
-                self.ui = Ui_Regis()
-                self.ui.setupUi(self.window)
-                Form.hide()
-                self.window.show()
+                if( id.get('role') == "Admin"):
+                    self.window = QtWidgets.QMainWindow()
+                    self.ui = Ui_Regis()
+                    self.ui.setupUi(self.window)
+                    Form.hide()
+                    self.window.show()
 
             else:
                 dialog = QDialog(Form)
@@ -90,7 +90,6 @@ class Ui_Login(object):
 
                 dialog.show()
 
-
                 print("incorrect password")
         else:
             dialog = QDialog(Form)
@@ -106,7 +105,6 @@ class Ui_Login(object):
             dialog.setLayout(layout)
 
             dialog.show()
-
 
 
 if __name__ == "__main__":
