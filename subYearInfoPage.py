@@ -15,9 +15,8 @@ import regisNewAccountPage
 from teacher import teacher
 
 
-
 class Ui_SubYear(object):
-    def setupUi(self, Form,first,last,username,role):
+    def setupUi(self, Form, first, last, username, role):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         self.subjects = {}
         self.first = first
@@ -25,6 +24,7 @@ class Ui_SubYear(object):
         self.username = username
         self.role = role
         self.Form = Form
+        self.valid = 0
         self.Form.setObjectName("Form")
         self.Form.resize(1269, 825)
         self.label = QtWidgets.QLabel(self.Form)
@@ -135,7 +135,7 @@ class Ui_SubYear(object):
         self.socialCheck.setText(_translate("Form", "Social Studies"))
         self.geoCheck.setText(_translate("Form", "Geography"))
         self.doneButton.setText(_translate("Form", "Done"))
-        self.backButton.setText(_translate("Form","Back"))
+        self.backButton.setText(_translate("Form", "Back"))
         self.doneButton.clicked.connect(self.done)
         self.backButton.clicked.connect(self.back)
 
@@ -145,56 +145,116 @@ class Ui_SubYear(object):
         self.ui.reOpen(self.window, self.first, self.last, self.username, self.role)
         self.Form.hide()
         self.window.show()
-    
+
     def done(self):
         count = 1
-        if(self.mathCheck.isChecked()):
-            years = self.mathEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub"+str(count):"Mathematic"+x})
-                count+=1
-
+        if (self.mathCheck.isChecked()):
+            self.valid = 0
+            self.years = self.mathEntry.text()
+            for x in self.years.split(','):
+                if (x.isdigit() == True):
+                    if (int(x) > 0 and int(x) <= 12):
+                        self.subjects.update({"sub" + str(count): "Mathematic" + x})
+                        count += 1
+                        self.valid = 1
+                    else:
+                        self.showError()
+                        self.valid = 0
+                else:
+                    self.showError()
+                    self.valid = 0
 
         if (self.scienceCheck.isChecked()):
-            years = self.scienceEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub"+str(count):"Science"+x})
-                count+=1
+            self.years = self.scienceEntry.text()
+            for x in self.years.split(','):
+                if (x.isdigit() == True):
+                    if int(x) > 0 or int(x) <= 12:
+                        self.subjects.update({"sub" + str(count): "Science" + x})
+                        count += 1
+                        self.valid = 1
+                    else:
+                        self.showError()
+                        self.valid = 0
+                else:
+                    self.showError()
+                    self.valid = 0
 
         if (self.thaiCheck.isChecked()):
-            years = self.thaiEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Thai" + x})
-                count += 1
+            self.years = self.thaiEntry.text()
+            for x in self.years.split(','):
+                if (x.isdigit() == True):
+                    if (int(x) > 0 and int(x) <= 12):
+                        self.subjects.update({"sub" + str(count): "Thai" + x})
+                        count += 1
+                        self.valid = 1
+                    else:
+                        self.showError()
+                        self.valid = 0
+                else:
+                    self.showError()
+                    self.valid = 0
 
         if (self.engCheck.isChecked()):
-            years = self.engEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "English" + x})
-                count += 1
+            self.years = self.engEntry.text()
+            for x in self.years.split(','):
+                if (x.isdigit() == True):
+                    if (int(x) > 0 and int(x) <= 12):
+                        self.subjects.update({"sub" + str(count): "English" + x})
+                        count += 1
+                        self.valid = 1
+                    else:
+                        self.showError()
+                        self.valid = 0
+                else:
+                    self.showError()
+                    self.valid = 0
 
         if (self.socialCheck.isChecked()):
-            years = self.socialEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Social Studies" + x})
-                count += 1
+            self.years = self.socialEntry.text()
+            for x in self.years.split(','):
+                if (x.isdigit() == True):
+                    if (int(x) > 0 and int(x) <= 12):
+                        self.subjects.update({"sub" + str(count): "Social Studies" + x})
+                        count += 1
+                        self.valid = 1
+                    else:
+                        self.showError()
+                        self.valid = 0
+                else:
+                    self.showError()
+                    self.valid = 0
 
         if (self.geoCheck.isChecked()):
-            years = self.geoEntry.text()
-            for x in years.split(','):
-                self.subjects.update({"sub" + str(count): "Geography" + x})
-                count += 1
+            self.years = self.geoEntry.text()
+            for x in self.years.split(','):
+                if (x.isdigit() == True):
+                    if (int(x) > 0 and int(x) <= 12):
+                        self.subjects.update({"sub" + str(count): "Geography" + x})
+                        count += 1
+                        self.valid = 1
+                    else:
+                        self.showError()
+                        self.valid = 0
+                else:
+                    self.showError()
+                    self.valid = 0
+
+
         else:
             print("please enter subject")
 
+        if (self.valid == 1):
+            self.printSummary()
+
+    def printSummary(self):
         self.password = self.generatePassword()
         print(self.subjects)
         print(self.password)
 
-        self.t = teacher(self.first,self.last,self.username,self.password,self.subjects)
+        self.t = teacher(self.first, self.last, self.username, self.password, self.subjects)
 
         self.teacher = {'first': self.t.first, 'last': self.t.last, 'password': self.t.password, 'role': self.role,
-                    'subjects': self.t.subjects}
+                        'subjects': self.t.subjects}
 
         self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()
@@ -207,10 +267,10 @@ class Ui_SubYear(object):
             else:
                 subjectList += ", " + self.subjects.get(i)
 
-
         lusername = QLabel(self.Form)
-        lusername.setText("Username : " + self.username + "\n" + "Password : " + self.password + "\n" + "First name: " + self.first +
-                          "\n" + "Last name: " + self.last + "\n" + "Role: " + self.role + "\n" + "Subject: " + subjectList )
+        lusername.setText(
+            "Username : " + self.username + "\n" + "Password : " + self.password + "\n" + "First name: " + self.first +
+            "\n" + "Last name: " + self.last + "\n" + "Role: " + self.role + "\n" + "Subject: " + subjectList)
         layout.addWidget(lusername)
 
         confirm_button = QPushButton('Confirm')
@@ -225,12 +285,24 @@ class Ui_SubYear(object):
 
         self.dialog.show()
 
+    def showError(self):
+        dialog = QDialog(self.Form)
+        layout = QVBoxLayout()
+
+        label = QLabel(self.Form)
+        label.setText("Invalid years")
+        layout.addWidget(label)
+
+        confirm_button = QPushButton('Confirm')
+        confirm_button.clicked.connect(dialog.close)
+        layout.addWidget(confirm_button)
+        dialog.setLayout(layout)
+
+        dialog.show()
 
     def Confirm(self):
-        self.db.put('Teachers',self.username,self.teacher)
+        self.db.put('Teachers', self.username, self.teacher)
         self.dialog.close()
-
-
 
     def generatePassword(self):
         passWord = ""
@@ -241,10 +313,10 @@ class Ui_SubYear(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_SubYear()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-
