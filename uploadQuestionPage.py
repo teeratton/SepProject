@@ -113,183 +113,177 @@ class Ui_Form(object):
         font.setPointSize(12)
         self.backButton.setFont(font)
         self.backButton.setObjectName("backButton")
-        
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-        
+
         self.doneButton.clicked.connect(self.done)
-        
+
         for x in self.t.getSubjects() :
             self.comboBox.addItem(self.t.getSubjects().get(x))
-        
+
         self.questionText.setText("")
         self.aText.setText("")
         self.bText.setText("")
         self.cText.setText("")
         self.dText.setText("")
-    
-    
-    
+
+
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "Upload An Exam Question"))
         self.label_2.setText(_translate("Form", "Select A Course ID:"))
         self.questionText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                             "p, li { white-space: pre-wrap; }\n"
-                                             "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-                                             "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">WHATTTTUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTHEHEHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH</p></body></html>"))
-                                             self.label_3.setText(_translate("Form", "Question:"))
-                                             self.label_4.setText(_translate("Form", "Please select the"))
-                                             self.label_5.setText(_translate("Form", "correct answer choice."))
-                                             self.groupBox.setTitle(_translate("Form", "Choices:"))
-                                             self.aRadio.setText(_translate("Form", "A"))
-                                             self.bRadio.setText(_translate("Form", "B"))
-                                             self.cRadio.setText(_translate("Form", "C"))
-                                             self.dRadio.setText(_translate("Form", "D"))
-                                             self.aText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                                                           "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                                                           "p, li { white-space: pre-wrap; }\n"
-                                                                           "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-                                                                           "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
-                                             self.bText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                                                           "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                                                           "p, li { white-space: pre-wrap; }\n"
-                                                                           "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-                                                                           "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
-                                             self.cText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                                                           "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                                                           "p, li { white-space: pre-wrap; }\n"
-                                                                           "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-                                                                           "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
-                                             self.dText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-                                                                           "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                                                           "p, li { white-space: pre-wrap; }\n"
-                                                                           "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-                                                                           "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
-                                             self.doneButton.setText(_translate("Form", "Done"))
-                                             self.backButton.setText(_translate("Form", "Back"))
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">WHATTTTUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTHEHEHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH</p></body></html>"))
+        self.label_3.setText(_translate("Form", "Question:"))
+        self.label_4.setText(_translate("Form", "Please select the"))
+        self.label_5.setText(_translate("Form", "correct answer choice."))
+        self.groupBox.setTitle(_translate("Form", "Choices:"))
+        self.aRadio.setText(_translate("Form", "A"))
+        self.bRadio.setText(_translate("Form", "B"))
+        self.cRadio.setText(_translate("Form", "C"))
+        self.dRadio.setText(_translate("Form", "D"))
+        self.aText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
+        self.bText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
+        self.cText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
+        self.dText.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</span></p></body></html>"))
+        self.doneButton.setText(_translate("Form", "Done"))
+        self.backButton.setText(_translate("Form", "Back"))
 
-def validate(self):
-    if self.questionText.toPlainText() == "":
-        return 0
+    def validate(self):
+        if self.questionText.toPlainText() == "":
+            return 0
         if self.aText.toPlainText() == "" and self.bText.toPlainText() == "" and self.cText.toPlainText() == "" :
             return 0
-    if (self.aText.toPlainText() != "" and self.bText.toPlainText() != "" and self.cText.toPlainText() != "") and self.dText.toPlainText() == "":
-        if(self.aRadio.isChecked() or self.bRadio.isChecked() or self.cRadio.isChecked()):
-            return 3
+        if (self.aText.toPlainText() != "" and self.bText.toPlainText() != "" and self.cText.toPlainText() != "") and self.dText.toPlainText() == "":
+            if(self.aRadio.isChecked() or self.bRadio.isChecked() or self.cRadio.isChecked()):
+                return 3
         if self.aRadio.isChecked() or self.bRadio.isChecked() or self.cRadio.isChecked() or self.dRadio.isChecked():
             if self.aText.toPlainText() != "" and self.bText.toPlainText() != "" and self.cText.toPlainText() != "" and self.dText.toPlainText() != "":
                 return 1
         else:
             return 2
 
-def showDialog(self):
-    if (self.validate() == 3):
-        self.dialogException = QDialog(self.Form)
+    def showDialog(self):
+        if (self.validate() == 3):
+            self.dialogException = QDialog(self.Form)
             layout = QVBoxLayout()
-            
+
             label = QLabel(self.Form)
             label.setText("Are you sure you want only 3 multiple choice answer? ")
             layout.addWidget(label)
-<<<<<<< HEAD
 
-            close_button = QPushButton('Close')
-            close_button.clicked.connect(dialog.close)
-=======
-            
             confirm_button = QPushButton('Yes')
             confirm_button.clicked.connect(self.Confirmation)
             layout.addWidget(confirm_button)
             self.dialogException.setLayout(layout)
-            
+
             close_button = QPushButton('No')
             close_button.clicked.connect(self.dialogException.close)
->>>>>>> 6784abc62516c481b9a5c943b73909e6072cb453
             layout.addWidget(close_button)
             self.dialogException.setLayout(layout)
             self.dialogException.show()
         else:
             if (self.validate() == 2):
-                self.temp = 'Please tick correct answer'
+                temp = 'Please tick correct answer'
             elif (self.validate() == 0):
-                self.temp = 'Please fill the text box'
-        
+                temp = 'Please fill the text box'
+
             dialog = QDialog(self.Form)
             layout = QVBoxLayout()
-            
+
             label = QLabel(self.Form)
-            label.setText(self.temp)
+            label.setText(temp)
             layout.addWidget(label)
-            
+
             confirm_button = QPushButton('Close')
             confirm_button.clicked.connect(dialog.close)
             layout.addWidget(confirm_button)
             dialog.setLayout(layout)
-    dialog.show()
+            dialog.show()
 
-def done(self):
-    if self.validate() == 1:
-        self.Confirmation()
+    def done(self):
+        if self.validate() == 1:
+            self.Confirmation()
         else:
             self.showDialog()
-                
-                def Confirmation(self):
-                    self.dialogException.close()
-self.subId = self.comboBox.currentText()
-    self.question = self.questionText.toPlainText()
+
+    def Confirmation(self):
+        self.dialogException.close()
+        self.subId = self.comboBox.currentText()
+        self.question = self.questionText.toPlainText()
         self.ansA = self.aText.toPlainText()
         self.ansB = self.bText.toPlainText()
         self.ansC = self.cText.toPlainText()
         self.ansD = self.dText.toPlainText()
         if (self.aRadio.isChecked()):
             self.correctAnswer = self.aRadio.text()
-    if (self.bRadio.isChecked()):
-        self.correctAnswer = self.bRadio.text()
+        if (self.bRadio.isChecked()):
+            self.correctAnswer = self.bRadio.text()
         if (self.cRadio.isChecked()):
             self.correctAnswer = self.cRadio.text()
-if (self.dRadio.isChecked()):
-    self.correctAnswer = self.dRadio.text()
-        
+        if (self.dRadio.isChecked()):
+            self.correctAnswer = self.dRadio.text()
+
         self.generateQuestionID()
-        
+
         # self.q = question(self.subId,self.question,self.ansA,self.ansB,self.ansC,self.ansD,self.correctAnswer,"",self.quesId,self.t.username)
-        
+
         self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()
-        
+
         label = QLabel(self.Form)
         label.setText("Do you want to upload")
         layout.addWidget(label)
-        
+
         confirm_button = QPushButton('Yes')
         confirm_button.clicked.connect(self.ConfirmPassword)
         layout.addWidget(confirm_button)
         self.dialog.setLayout(layout)
-        
+
         close_button = QPushButton('No')
         close_button.clicked.connect(self.dialog.close)
         layout.addWidget(close_button)
         self.dialog.setLayout(layout)
-        
+
         self.dialog.show()
-    
-    
+
+
     def generateQuestionID(self):
         randomNum = ""
         for i in range(5):
             randomNum += random.choice(string.digits)
         self.quesId += self.t.getUsername() + randomNum
-    
-def ConfirmPassword(self):
-    self.pendingQuestion = {'subId': self.subId, 'question': self.question, 'ansA': self.ansA, 'ansB': self.ansB,
-        'ansC': self.ansC
+
+    def ConfirmPassword(self):
+        self.pendingQuestion = {'subId': self.subId, 'question': self.question, 'ansA': self.ansA, 'ansB': self.ansB,
+                                'ansC': self.ansC
             , 'ansD': self.ansD, 'correctAnswer': self.correctAnswer, 'level': "", 'quesId': self.quesId,
-                'teacherUsername': self.t.username}
-        
+                                'teacherUsername': self.t.username}
+
         self.db.put('PendingQuestions', self.quesId, self.pendingQuestion)
-    self.dialog.close()
+        self.dialog.close()
 
 
 
