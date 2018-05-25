@@ -8,10 +8,19 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-
+from headTeacher import headTeacher
+import regisNewAccountPage
+from firebase import firebase
+import string
+import random
 class Ui_Form(object):
-    def setupUi(self, Form):
+    def setupUi(self, Form, first, last, username, role):
         self.Form = Form
+        self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
+        self.first = first
+        self.last = last
+        self.username = username
+        self.role = role
         Form.setObjectName("Form")
         Form.resize(1269, 825)
         self.label = QtWidgets.QLabel(Form)
@@ -91,6 +100,8 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+        self.doneButton.clicked.connect(self.done)
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
@@ -103,60 +114,55 @@ class Ui_Form(object):
         self.geoCheck.setText(_translate("Form", "Geography"))
         self.doneButton.setText(_translate("Form", "Done"))
         self.backButton.setText(_translate("Form", "Back"))
+        self.backButton.clicked.connect(self.back)
+
+
+    def back(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = regisNewAccountPage.Ui_Regis()
+        self.ui.reOpen(self.window, self.first, self.last, self.username, self.role)
+        self.Form.hide()
+        self.window.show()
 
     def done(self):
-        if (self.readData() == True):
+        if self.scienceCheck.isChecked() or self.mathCheck.isChecked() or self.thaiCheck.isChecked() or self.engCheck.isChecked() or self.socialCheck.isChecked() or self.geoCheck.isChecked():
+            if(self.scienceCheck.isChecked()):
+                self.subject = self.scienceCheck.text()
+            if(self.mathCheck.isChecked()):
+                self.subject = self.mathCheck.text()
+            if (self.thaiCheck.isChecked()):
+                self.subject = self.thaiCheck.text()
+            if (self.engCheck.isChecked()):
+                self.subject = self.engCheck.text()
+            if (self.socialCheck.isChecked()):
+                self.subject = self.socialCheck.text()
+            if (self.geoCheck.isChecked()):
+                self.subject = self.geoCheck.text()
+            print(self.subject)
             self.printSummary()
+
         else:
             self.showError()
 
-    def readData(self):
-        count = 1
-        length = len(self.buttonCheck)
-        self.subjects.clear()
-        for i in range(length):
-            if self.buttonCheck[i].isChecked():
-                if self.entryList[i].text() != "":
-                    years = self.entryList[i].text()
-                    for x in years.split(','):
-                        if self.isValid(x):
-                            self.subjects.update({"sub" + str(count): self.subjectName[i] + x})
-                            count += 1
-                        else:
-                            return False
-                else:
-                    return False
-            else:
-                if self.entryList[i].text() != "":
-                    return False
-
-        return True
 
     def printSummary(self):
         self.password = self.generatePassword()
-        print(self.subjects)
+        print(self.subject)
         print(self.password)
 
-        self.t = teacher(self.first, self.last, self.username, self.password, self.subjects)
+        self.ht = headTeacher(self.first, self.last, self.username, self.password, self.subject)
 
-        self.teacher = {'first': self.t.first, 'last': self.t.last, 'password': self.t.password, 'role': self.role,
-                        'subjects': self.t.subjects}
+        self.teacher = {'first': self.ht.first, 'last': self.ht.last, 'password': self.ht.password, 'role': self.role,
+                        'subjects': self.ht.subject}
 
         self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()
 
-        subjectList = ""
-
-        for i in self.subjects:
-            if i == "sub1":
-                subjectList += self.subjects.get(i)
-            else:
-                subjectList += ", " + self.subjects.get(i)
 
         lusername = QLabel(self.Form)
         lusername.setText(
             "Username : " + self.username + "\n" + "Password : " + self.password + "\n" + "First name: " + self.first +
-            "\n" + "Last name: " + self.last + "\n" + "Role: " + self.role + "\n" + "Subject: " + subjectList)
+            "\n" + "Last name: " + self.last + "\n" + "Role: " + self.role + "\n" + "Subject: " + self.subject)
         layout.addWidget(lusername)
 
         confirm_button = QPushButton('Confirm')
@@ -188,8 +194,13 @@ class Ui_Form(object):
 
 
     def Confirm(self):
-        self.db.put('Teachers', self.username, self.teacher)
+        self.db.put('HeadTeachers', self.username, self.teacher)
         self.dialog.close()
+        self.window = QtWidgets.QMainWindow()
+        self.ui = regisNewAccountPage.Ui_Regis()
+        self.ui.setupUi(self.window)
+        self.Form.hide()
+        self.window.show()
 
     def generatePassword(self):
         passWord = ""

@@ -1,4 +1,4 @@
-class teacher:
+class headTeacher:
     def __init__(self,first,last,username,password,subject):
         self.first = first
         self.last = last

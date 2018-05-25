@@ -72,6 +72,7 @@ class Ui_Regis(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+
     def reOpen(self, Form,first,last,username,role):
         self.first = first
         self.last = last
@@ -172,7 +173,7 @@ class Ui_Regis(object):
             if(role == "Head Teacher"):
                 self.window = QtWidgets.QMainWindow()
                 self.ui = subYearInfoPageHead.Ui_Form()
-                self.ui.setupUi(self.window)
+                self.ui.setupUi(self.window,first,last,username,role)
                 self.Form.hide()
                 self.window.show()
 
