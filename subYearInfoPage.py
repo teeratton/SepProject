@@ -140,7 +140,7 @@ class Ui_SubYear(object):
         self.backButton.clicked.connect(self.back)
 
         self.buttonCheck = [self.mathCheck, self.scienceCheck,self.thaiCheck,self.engCheck,self.socialCheck,self.geoCheck]
-        self.entryList = [self.mathEntry, self.scienceEntry,self.thaiEntry,self.engEntry,self.scienceEntry,self.geoEntry]
+        self.entryList = [self.mathEntry, self.scienceEntry,self.thaiEntry,self.engEntry,self.socialEntry,self.geoEntry]
         self.subjectName = ["Mathematic", "Science", "Thai", "English","Social Studies", "Geography"]
 
 

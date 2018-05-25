@@ -16,8 +16,9 @@ from teacher import teacher
 class Ui_Login(object):
     def setupUi(self, Form):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
-        Form.setObjectName("Form")
-        Form.resize(1274, 826)
+        self.Form = Form
+        self.Form.setObjectName("Form")
+        self.Form.resize(1274, 826)
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(280, 90, 721, 141))
         font = QtGui.QFont()
@@ -81,7 +82,7 @@ class Ui_Login(object):
                     self.window = QtWidgets.QMainWindow()
                     self.ui = teacherPage.Ui_Form()
                     self.ui.setupUi(self.window,self.t)
-                    Form.hide()
+                    self.Form.hide()
                     self.window.show()
 
 

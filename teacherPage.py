@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from teacher import teacher
 import uploadQuestionPage
+import firstLoginPage
 
 class Ui_Form(object):
     def setupUi(self, Form,t):
@@ -57,6 +58,7 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
         self.uploadButton.clicked.connect(self.upload)
+        self.logoutButton.clicked.connect(self.logOut)
 
         self.firstLastLabel.setText(self.t.getFirst() + " " + self.t.getLast())
 
@@ -76,6 +78,14 @@ class Ui_Form(object):
         self.ui.setupUi(self.window,self.t)
         self.Form.hide()
         self.window.show()
+
+    def logOut(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = firstLoginPage.Ui_Login()
+        self.ui.setupUi(self.window)
+        self.Form.hide()
+        self.window.show()
+
 
 if __name__ == "__main__":
     import sys
