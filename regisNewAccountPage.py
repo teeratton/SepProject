@@ -8,7 +8,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from firebase import firebase
-from subYearInfoPage import Ui_SubYear
+import subYearInfoPage
+import subYearInfoPageHead
 
 class Ui_Regis(object):
     def setupUi(self, Form):
@@ -161,11 +162,24 @@ class Ui_Regis(object):
             username = self.uNameEntry.text()
             role = self.roleEntry.currentText()
 
-            self.window = QtWidgets.QMainWindow()
-            self.ui = Ui_SubYear()
-            self.ui.setupUi(self.window,first,last,username,role)
-            self.Form.hide()
-            self.window.show()
+            if(role == "Teacher"):
+                self.window = QtWidgets.QMainWindow()
+                self.ui = subYearInfoPage.Ui_SubYear()
+                self.ui.setupUi(self.window, first, last, username, role)
+                self.Form.hide()
+                self.window.show()
+
+            if(role == "Head Teacher"):
+                self.window = QtWidgets.QMainWindow()
+                self.ui = subYearInfoPageHead.Ui_Form()
+                self.ui.setupUi(self.window)
+                self.Form.hide()
+                self.window.show()
+
+
+
+
+
 
 
     def validate(self):

@@ -147,7 +147,7 @@ class Ui_Form(object):
         self.dText.setHtml(_translate("Form", ""))
         self.doneButton.setText(_translate("Form", "Done"))
         self.backButton.setText(_translate("Form", "Back"))
-        
+
     def validate(self):
         if self.questionText.toPlainText() == "":
             return 0

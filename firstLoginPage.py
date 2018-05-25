@@ -74,7 +74,7 @@ class Ui_Login(object):
                     self.window = QtWidgets.QMainWindow()
                     self.ui = Ui_Regis()
                     self.ui.setupUi(self.window)
-                    Form.hide()
+                    self.Form.hide()
                     self.window.show()
 
                 if(id.get('role') == "Teacher"):

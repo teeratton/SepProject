@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'subYearInfoPage.ui'
+# Form implementation generated from reading ui file 'subYearInfoPageHead.ui'
 #
 # Created by: PyQt5 UI code generator 5.9.2
 #
@@ -8,67 +8,72 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-import random
-import string
-from firebase import firebase
-import regisNewAccountPage
-from teacher import teacher
 
-
-class Ui_SubYear(object):
-    def setupUi(self, Form, first, last, username, role):
-        self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
-        self.subjects = {}
-        self.first = first
-        self.last = last
-        self.username = username
-        self.role = role
+class Ui_Form(object):
+    def setupUi(self, Form):
         self.Form = Form
-        self.valid = 0
-        self.Form.setObjectName("Form")
-        self.Form.resize(1269, 825)
-        self.label = QtWidgets.QLabel(self.Form)
-        self.label.setGeometry(QtCore.QRect(270, 20, 751, 111))
+        Form.setObjectName("Form")
+        Form.resize(1269, 825)
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setGeometry(QtCore.QRect(500, 30, 521, 111))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.label.setFont(font)
         self.label.setObjectName("label")
-        self.scienceCheck = QtWidgets.QCheckBox(Form)
-        self.scienceCheck.setGeometry(QtCore.QRect(670, 400, 251, 61))
+
+
+        self.groupBox = QtWidgets.QGroupBox(Form)
+        self.groupBox.setGeometry(QtCore.QRect(200, 180, 900, 500))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.groupBox.setFont(font)
+        self.groupBox.setObjectName("groupBox")
+
+        self.scienceCheck = QRadioButton(self.groupBox)
         font = QtGui.QFont()
         font.setPointSize(16)
         self.scienceCheck.setFont(font)
         self.scienceCheck.setObjectName("scienceCheck")
-        self.mathCheck = QtWidgets.QCheckBox(Form)
-        self.mathCheck.setGeometry(QtCore.QRect(110, 610, 231, 61))
+        self.scienceCheck.setGeometry(QtCore.QRect(670, 400, 251, 61))
+
         font = QtGui.QFont()
         font.setPointSize(16)
+        self.mathCheck = QRadioButton(self.groupBox)
         self.mathCheck.setFont(font)
         self.mathCheck.setObjectName("mathCheck")
-        self.thaiCheck = QtWidgets.QCheckBox(Form)
-        self.thaiCheck.setGeometry(QtCore.QRect(680, 200, 121, 61))
+        self.mathCheck.setGeometry(QtCore.QRect(130, 80, 231, 61))
+
+
+
         font = QtGui.QFont()
         font.setPointSize(16)
+        self.thaiCheck = QRadioButton(self.groupBox)
         self.thaiCheck.setFont(font)
         self.thaiCheck.setObjectName("thaiCheck")
-        self.engCheck = QtWidgets.QCheckBox(Form)
-        self.engCheck.setGeometry(QtCore.QRect(130, 200, 141, 61))
+        self.thaiCheck.setGeometry(QtCore.QRect(670, 230, 121, 61))
+
+
         font = QtGui.QFont()
         font.setPointSize(16)
+        self.engCheck = QRadioButton(self.groupBox)
         self.engCheck.setFont(font)
         self.engCheck.setObjectName("engCheck")
-        self.socialCheck = QtWidgets.QCheckBox(Form)
-        self.socialCheck.setGeometry(QtCore.QRect(670, 610, 221, 61))
+        self.engCheck.setGeometry(QtCore.QRect(130, 230, 141, 61))
+
         font = QtGui.QFont()
         font.setPointSize(16)
+        self.socialCheck = QRadioButton(self.groupBox)
+        self.socialCheck.setGeometry(QtCore.QRect(670, 80, 221, 61))
         self.socialCheck.setFont(font)
         self.socialCheck.setObjectName("socialCheck")
-        self.geoCheck = QtWidgets.QCheckBox(Form)
+
+        self.geoCheck = QRadioButton(self.groupBox)
         self.geoCheck.setGeometry(QtCore.QRect(120, 400, 221, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.geoCheck.setFont(font)
         self.geoCheck.setObjectName("geoCheck")
+
 
         self.doneButton = QtWidgets.QPushButton(Form)
         self.doneButton.setGeometry(QtCore.QRect(1090, 730, 131, 61))
@@ -76,58 +81,20 @@ class Ui_SubYear(object):
         font.setPointSize(14)
         self.doneButton.setFont(font)
         self.doneButton.setObjectName("doneButton")
-
         self.backButton = QtWidgets.QPushButton(Form)
-        self.backButton.setGeometry(QtCore.QRect(120, 730, 131, 61))
+        self.backButton.setGeometry(QtCore.QRect(50, 730, 131, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.backButton.setFont(font)
         self.backButton.setObjectName("backButton")
 
-        self.geoEntry = QtWidgets.QLineEdit(Form)
-        self.geoEntry.setGeometry(QtCore.QRect(370, 400, 241, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.geoEntry.setFont(font)
-        self.geoEntry.setObjectName("geoEntry")
-        self.mathEntry = QtWidgets.QLineEdit(Form)
-        self.mathEntry.setGeometry(QtCore.QRect(370, 610, 241, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.mathEntry.setFont(font)
-        self.mathEntry.setObjectName("mathEntry")
-        self.engEntry = QtWidgets.QLineEdit(Form)
-        self.engEntry.setGeometry(QtCore.QRect(370, 200, 241, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.engEntry.setFont(font)
-        self.engEntry.setObjectName("engEntry")
-        self.thaiEntry = QtWidgets.QLineEdit(Form)
-        self.thaiEntry.setGeometry(QtCore.QRect(940, 200, 241, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.thaiEntry.setFont(font)
-        self.thaiEntry.setObjectName("thaiEntry")
-        self.scienceEntry = QtWidgets.QLineEdit(Form)
-        self.scienceEntry.setGeometry(QtCore.QRect(940, 400, 241, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.scienceEntry.setFont(font)
-        self.scienceEntry.setObjectName("scienceEntry")
-        self.socialEntry = QtWidgets.QLineEdit(Form)
-        self.socialEntry.setGeometry(QtCore.QRect(940, 610, 241, 61))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.socialEntry.setFont(font)
-        self.socialEntry.setObjectName("socialEntry")
-
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
-    def retranslateUi(self, hisEntry):
+    def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        hisEntry.setWindowTitle(_translate("Form", "Form"))
-        self.label.setText(_translate("Form", "Subject and Year Information"))
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.label.setText(_translate("Form", "Subject Information"))
         self.scienceCheck.setText(_translate("Form", "Science"))
         self.mathCheck.setText(_translate("Form", "Mathematics"))
         self.thaiCheck.setText(_translate("Form", "Thai"))
@@ -136,23 +103,9 @@ class Ui_SubYear(object):
         self.geoCheck.setText(_translate("Form", "Geography"))
         self.doneButton.setText(_translate("Form", "Done"))
         self.backButton.setText(_translate("Form", "Back"))
-        self.doneButton.clicked.connect(self.done)
-        self.backButton.clicked.connect(self.back)
-
-        self.buttonCheck = [self.mathCheck, self.scienceCheck,self.thaiCheck,self.engCheck,self.socialCheck,self.geoCheck]
-        self.entryList = [self.mathEntry, self.scienceEntry,self.thaiEntry,self.engEntry,self.socialEntry,self.geoEntry]
-        self.subjectName = ["Mathematic", "Science", "Thai", "English","Social Studies", "Geography"]
-
-
-    def back(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = regisNewAccountPage.Ui_Regis()
-        self.ui.reOpen(self.window, self.first, self.last, self.username, self.role)
-        self.Form.hide()
-        self.window.show()
 
     def done(self):
-        if(self.readData() == True):
+        if (self.readData() == True):
             self.printSummary()
         else:
             self.showError()
@@ -177,10 +130,7 @@ class Ui_SubYear(object):
                 if self.entryList[i].text() != "":
                     return False
 
-
         return True
-
-
 
     def printSummary(self):
         self.password = self.generatePassword()
@@ -236,17 +186,6 @@ class Ui_SubYear(object):
 
         dialog.show()
 
-    def isValid(self,x):
-        if x.isdigit() == True:
-            if 0 < int(x) <= 12:
-                print("valid")
-                return 1
-            else:
-                print("negative")
-                return 0
-        else:
-            print("not digit")
-            return 0
 
     def Confirm(self):
         self.db.put('Teachers', self.username, self.teacher)
@@ -261,10 +200,10 @@ class Ui_SubYear(object):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_SubYear()
+    ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
+
