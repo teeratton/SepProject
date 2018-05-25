@@ -69,21 +69,21 @@ class Ui_SubYear(object):
         font.setPointSize(16)
         self.geoCheck.setFont(font)
         self.geoCheck.setObjectName("geoCheck")
-
+        
         self.doneButton = QtWidgets.QPushButton(Form)
         self.doneButton.setGeometry(QtCore.QRect(1090, 730, 131, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.doneButton.setFont(font)
         self.doneButton.setObjectName("doneButton")
-
+        
         self.backButton = QtWidgets.QPushButton(Form)
         self.backButton.setGeometry(QtCore.QRect(120, 730, 131, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.backButton.setFont(font)
         self.backButton.setObjectName("backButton")
-
+        
         self.geoEntry = QtWidgets.QLineEdit(Form)
         self.geoEntry.setGeometry(QtCore.QRect(370, 400, 241, 61))
         font = QtGui.QFont()
@@ -120,10 +120,10 @@ class Ui_SubYear(object):
         font.setPointSize(14)
         self.socialEntry.setFont(font)
         self.socialEntry.setObjectName("socialEntry")
-
+        
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-
+    
     def retranslateUi(self, hisEntry):
         _translate = QtCore.QCoreApplication.translate
         hisEntry.setWindowTitle(_translate("Form", "Form"))
@@ -138,172 +138,186 @@ class Ui_SubYear(object):
         self.backButton.setText(_translate("Form", "Back"))
         self.doneButton.clicked.connect(self.done)
         self.backButton.clicked.connect(self.back)
-
+        
+        self.buttonCheck = [self.mathCheck, self.scienceCheck,self.thaiCheck,self.engCheck,self.socialCheck,self.geoCheck]
+        self.entryList = [self.mathEntry, self.scienceEntry,self.thaiEntry,self.engEntry,self.scienceEntry,self.geoEntry]
+        self.subjectName = ["Mathematic", "Science", "Thai", "English","Social Studies", "Geography"]
+    
+    
     def back(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = regisNewAccountPage.Ui_Regis()
         self.ui.reOpen(self.window, self.first, self.last, self.username, self.role)
         self.Form.hide()
         self.window.show()
-
+    
     def done(self):
-        count = 1
-        if (self.mathCheck.isChecked()):
+        if(self.readData() == True):
+            self.printSummary()
+        else:
+            self.showError()
+
+def readData(self):
+    count = 1
+        length = len(self.buttonCheck)
+        self.subjects.clear()
+        for i in range(length):
+            if self.buttonCheck[i].isChecked():
+                if self.entryList[i].text() != "":
+                    years = self.entryList[i].text()
+                    for x in years.split(','):
+                        if self.isValid(x):
+                            self.subjects.update({"sub" + str(count): self.subjectName[i] + x})
+                            count += 1
+                        else:
+                            return False
+                else:
+                    return False
+            else:
+                if self.entryList[i].text() != "":
+                    return False
+
+
+    return True
+        
+        """
+            if self.mathCheck.isChecked():
             self.valid = 0
             self.years = self.mathEntry.text()
             for x in self.years.split(','):
-                if (x.isdigit() == True):
-                    if (int(x) > 0 and int(x) <= 12):
-                        self.subjects.update({"sub" + str(count): "Mathematic" + x})
-                        count += 1
-                        self.valid = 1
-                    else:
-                        self.showError()
-                        self.valid = 0
-                else:
-                    self.showError()
-                    self.valid = 0
-
-        if (self.scienceCheck.isChecked()):
+            if self.isValid(x):
+            self.subjects.update({"sub" + str(count): "Mathematic" + x})
+            count += 1
+            else:
+            return False
+            
+            if self.scienceCheck.isChecked():
+            self.valid = 0
             self.years = self.scienceEntry.text()
             for x in self.years.split(','):
-                if (x.isdigit() == True):
-                    if int(x) > 0 or int(x) <= 12:
-                        self.subjects.update({"sub" + str(count): "Science" + x})
-                        count += 1
-                        self.valid = 1
-                    else:
-                        self.showError()
-                        self.valid = 0
-                else:
-                    self.showError()
-                    self.valid = 0
-
-        if (self.thaiCheck.isChecked()):
+            if self.isValid(x):
+            self.subjects.update({"sub" + str(count): "Science" + x})
+            count += 1
+            else:
+            return False
+            
+            if self.thaiCheck.isChecked():
+            self.valid = 0
             self.years = self.thaiEntry.text()
             for x in self.years.split(','):
-                if (x.isdigit() == True):
-                    if (int(x) > 0 and int(x) <= 12):
-                        self.subjects.update({"sub" + str(count): "Thai" + x})
-                        count += 1
-                        self.valid = 1
-                    else:
-                        self.showError()
-                        self.valid = 0
-                else:
-                    self.showError()
-                    self.valid = 0
-
-        if (self.engCheck.isChecked()):
+            if self.isValid(x):
+            self.subjects.update({"sub" + str(count): "Thai" + x})
+            count += 1
+            self.valid = 1
+            else:
+            return False
+            
+            if self.engCheck.isChecked():
+            self.valid = 0
             self.years = self.engEntry.text()
             for x in self.years.split(','):
-                if (x.isdigit() == True):
-                    if (int(x) > 0 and int(x) <= 12):
-                        self.subjects.update({"sub" + str(count): "English" + x})
-                        count += 1
-                        self.valid = 1
-                    else:
-                        self.showError()
-                        self.valid = 0
-                else:
-                    self.showError()
-                    self.valid = 0
-
-        if (self.socialCheck.isChecked()):
+            if self.isValid(x):
+            self.subjects.update({"sub" + str(count): "English" + x})
+            count += 1
+            self.valid = 1
+            else:
+            return False
+            
+            if self.socialCheck.isChecked():
+            self.valid = 0
             self.years = self.socialEntry.text()
             for x in self.years.split(','):
-                if (x.isdigit() == True):
-                    if (int(x) > 0 and int(x) <= 12):
-                        self.subjects.update({"sub" + str(count): "Social Studies" + x})
-                        count += 1
-                        self.valid = 1
-                    else:
-                        self.showError()
-                        self.valid = 0
-                else:
-                    self.showError()
-                    self.valid = 0
-
-        if (self.geoCheck.isChecked()):
+            if self.isValid(x):
+            self.subjects.update({"sub" + str(count): "Social Studies" + x})
+            count += 1
+            self.valid = 1
+            else:
+            return False
+            
+            if self.geoCheck.isChecked():
+            self.valid = 0
             self.years = self.geoEntry.text()
             for x in self.years.split(','):
-                if (x.isdigit() == True):
-                    if (int(x) > 0 and int(x) <= 12):
-                        self.subjects.update({"sub" + str(count): "Geography" + x})
-                        count += 1
-                        self.valid = 1
-                    else:
-                        self.showError()
-                        self.valid = 0
-                else:
-                    self.showError()
-                    self.valid = 0
+            if self.isValid(x):
+            self.subjects.update({"sub" + str(count): "Geography" + x})
+            count += 1
+            self.valid = 1
+            else:
+            return False
+            return True
+            """
 
 
-        else:
-            print("please enter subject")
-
-        if (self.valid == 1):
-            self.printSummary()
-
-    def printSummary(self):
-        self.password = self.generatePassword()
+def printSummary(self):
+    self.password = self.generatePassword()
         print(self.subjects)
         print(self.password)
-
+        
         self.t = teacher(self.first, self.last, self.username, self.password, self.subjects)
-
+        
         self.teacher = {'first': self.t.first, 'last': self.t.last, 'password': self.t.password, 'role': self.role,
-                        'subjects': self.t.subjects}
-
+            'subjects': self.t.subjects}
+    
         self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()
-
+        
         subjectList = ""
-
+        
         for i in self.subjects:
             if i == "sub1":
                 subjectList += self.subjects.get(i)
             else:
                 subjectList += ", " + self.subjects.get(i)
 
-        lusername = QLabel(self.Form)
-        lusername.setText(
-            "Username : " + self.username + "\n" + "Password : " + self.password + "\n" + "First name: " + self.first +
-            "\n" + "Last name: " + self.last + "\n" + "Role: " + self.role + "\n" + "Subject: " + subjectList)
+lusername = QLabel(self.Form)
+    lusername.setText(
+                      "Username : " + self.username + "\n" + "Password : " + self.password + "\n" + "First name: " + self.first +
+                      "\n" + "Last name: " + self.last + "\n" + "Role: " + self.role + "\n" + "Subject: " + subjectList)
         layout.addWidget(lusername)
-
+        
         confirm_button = QPushButton('Confirm')
         confirm_button.clicked.connect(self.Confirm)
         layout.addWidget(confirm_button)
         self.dialog.setLayout(layout)
-
+        
         close_button = QPushButton('No')
         close_button.clicked.connect(self.dialog.close)
         layout.addWidget(close_button)
         self.dialog.setLayout(layout)
-
+        
         self.dialog.show()
-
-    def showError(self):
+            
+                      def showError(self):
         dialog = QDialog(self.Form)
         layout = QVBoxLayout()
-
+        
         label = QLabel(self.Form)
-        label.setText("Invalid years")
+        label.setText("Invalid input")
         layout.addWidget(label)
-
+        
         confirm_button = QPushButton('Confirm')
         confirm_button.clicked.connect(dialog.close)
         layout.addWidget(confirm_button)
         dialog.setLayout(layout)
+        
+    dialog.show()
 
-        dialog.show()
+def isValid(self,x):
+    if x.isdigit() == True:
+        if 0 < int(x) <= 12:
+            print("valid")
+                return 1
+            else:
+                print("negative")
+                return 0
+    else:
+        print("not digit")
+            return 0
 
-    def Confirm(self):
-        self.db.put('Teachers', self.username, self.teacher)
+def Confirm(self):
+    self.db.put('Teachers', self.username, self.teacher)
         self.dialog.close()
-
+    
     def generatePassword(self):
         passWord = ""
         for i in range(8):
@@ -313,7 +327,7 @@ class Ui_SubYear(object):
 
 if __name__ == "__main__":
     import sys
-
+    
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_SubYear()
