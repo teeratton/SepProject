@@ -225,7 +225,7 @@ class Ui_Form(object):
             label = QLabel(self.Form)
             label.setText("Upload successful")
             layout.addWidget(label)
-    
+
             close_button = QPushButton('Close')
             close_button.clicked.connect(dialog.close)
             layout.addWidget(close_button)
