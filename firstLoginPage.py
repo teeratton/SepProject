@@ -12,6 +12,8 @@ from PyQt5.QtWidgets import *
 from regisNewAccountPage import Ui_Regis
 import teacherPage
 from teacher import teacher
+from headTeacher import headTeacher
+import headTeacherPage
 
 class Ui_Login(object):
     def setupUi(self, Form):
@@ -51,6 +53,8 @@ class Ui_Login(object):
         self.loginButton.setFont(font)
         self.loginButton.setObjectName("loginButton")
 
+
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -78,12 +82,22 @@ class Ui_Login(object):
                     self.window.show()
 
                 if(id.get('role') == "Teacher"):
-                    self.t = teacher(id.get('first'),id.get('last'),username,id.get('password'),id.get('subjects'),)
+                    self.t = teacher(id.get('first'),id.get('last'),username,id.get('password'),id.get('subjects'))
                     self.window = QtWidgets.QMainWindow()
                     self.ui = teacherPage.Ui_Form()
                     self.ui.setupUi(self.window,self.t)
                     self.Form.hide()
                     self.window.show()
+
+                if(id.get('role') == "Head Teacher"):
+                    self.ht = headTeacher(id.get('first'), id.get('last'),username,id.get('password'),id.get('subject'))
+                    self.window = QtWidgets.QMainWindow()
+                    self.ui = headTeacherPage.Ui_Form()
+                    self.ui.setupUi(self.window, self.ht)
+                    self.Form.hide()
+                    self.window.show()
+
+
 
 
             else:

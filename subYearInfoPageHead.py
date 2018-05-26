@@ -153,7 +153,7 @@ class Ui_Form(object):
         self.ht = headTeacher(self.first, self.last, self.username, self.password, self.subject)
 
         self.teacher = {'first': self.ht.first, 'last': self.ht.last, 'password': self.ht.password, 'role': self.role,
-                        'subjects': self.ht.subject}
+                        'subject': self.ht.subject}
 
         self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()
@@ -194,7 +194,7 @@ class Ui_Form(object):
 
 
     def Confirm(self):
-        self.db.put('HeadTeachers', self.username, self.teacher)
+        self.db.put('Teachers', self.username, self.teacher)
         self.dialog.close()
         self.window = QtWidgets.QMainWindow()
         self.ui = regisNewAccountPage.Ui_Regis()
