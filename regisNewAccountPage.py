@@ -177,12 +177,6 @@ class Ui_Regis(object):
                 self.Form.hide()
                 self.window.show()
 
-
-
-
-
-
-
     def validate(self):
         if self.fNameEntry.text() == '':
             print("please enter first name")

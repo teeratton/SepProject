@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from firebase import firebase
 from question import question
 import questionDetailPage
+import firstLoginPage
 
 
 class Ui_Form(object):
@@ -59,6 +60,7 @@ class Ui_Form(object):
         self.backButton = QtWidgets.QPushButton(self.Form)
         self.backButton.setGeometry(QtCore.QRect(750, 650, 181, 71))
         self.backButton.clicked.connect(self.decrement)
+        self.logoutButton.clicked.connect(self.logOut)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -235,6 +237,14 @@ class Ui_Form(object):
         self.ui.setupUi(self.window, x, self.ht)
         self.Form.hide()
         self.window.show()
+
+    def logOut(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = firstLoginPage.Ui_Login()
+        self.ui.setupUi(self.window)
+        self.Form.hide()
+        self.window.show()
+
 
 
 if __name__ == "__main__":
