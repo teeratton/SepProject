@@ -8,6 +8,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from firebase import firebase
+from question import question
+import questionDetailPage
+
 
 class Ui_Form(object):
     def setupUi(self, Form,ht):
@@ -109,7 +112,20 @@ class Ui_Form(object):
         for i in range (len(self.q)):
             self.quesID = self.q[i].get('quesId')
             self.courseID = self.q[i].get('subId')
+            self.question = self.q[i].get('question')
+            self.ansA = self.q[i].get('ansA')
+            self.ansB = self.q[i].get('ansB')
+            self.ansC = self.q[i].get('ansC')
+            self.ansD = self.q[i].get('ansD')
+            self.correctAns = self.q[i].get('correctAnswer')
+            self.level = self.q[i].get('level')
             self.username = self.q[i].get('teacherUsername')
+
+            self.selectQuestion = question(self.quesID,self.courseID,self.question,self.ansA,
+                                           self.ansB,self.ansC,self.ansD,self.correctAns,self.level,self.username)
+
+
+
             font = QtGui.QFont()
             font.setPointSize(14)
 
@@ -127,7 +143,7 @@ class Ui_Form(object):
             self.courseIdLabel = QtWidgets.QLabel(self.scrollAreaWidgetContents)
             self.courseIdLabel.setGeometry(QtCore.QRect(360, 10 + self.y, 131, 51))
             self.courseIdLabel.setFont(font)
-            self.courseIdLabel.setObjectName("courseIdLabe")
+            self.courseIdLabel.setObjectName("courseIdLabel")
 
             self.displayCourseId = QtWidgets.QLabel(self.scrollAreaWidgetContents)
             self.displayCourseId.setGeometry(QtCore.QRect(510, 10 + self.y, 241, 51))
@@ -148,7 +164,7 @@ class Ui_Form(object):
             self.viewButton.setGeometry(QtCore.QRect(790, 20 + self.y, 211, 81))
             self.viewButton.setFont(font)
 
-            self.viewButton.clicked.connect(lambda checked, arg = self.quesID : self.viewQuestion(arg) )
+            self.viewButton.clicked.connect(lambda checked, arg = self.selectQuestion : self.viewQuestion(arg) )
 
             self.quesLabel.raise_()
             self.displayQuesId.raise_()
@@ -178,7 +194,12 @@ class Ui_Form(object):
         return subject
 
     def viewQuestion(self,x):
-        print(x)
+        print(x.getQuestion())
+        self.window = QtWidgets.QMainWindow()
+        self.ui = questionDetailPage.Ui_Form()
+        self.ui.setupUi(self.window,x,self.ht)
+        self.Form.hide()
+        self.window.show()
 
 if __name__ == "__main__":
     import sys

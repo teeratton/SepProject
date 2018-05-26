@@ -1,5 +1,5 @@
 class question():
-    def __init__(self,subId,question, ansA,ansB,ansC,ansD,correctAns, level , quesID,teacherUsername):
+    def __init__(self,quesID,subId,question, ansA,ansB,ansC,ansD,correctAns, level ,teacherUsername):
         self.question = question
         self.ansA = ansA
         self.ansB = ansB

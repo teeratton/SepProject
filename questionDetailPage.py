@@ -7,9 +7,27 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
+from firebase import firebase
+
+import headTeacherPage
 
 class Ui_Form(object):
-    def setupUi(self, Form):
+    def setupUi(self, Form,question,ht):
+        self.Form = Form
+        self.ht = ht
+        self.selectQuestion = question
+        self.quesID = self.selectQuestion.questionId
+        self.courseID = self.selectQuestion.subId
+        self.question = self.selectQuestion.question
+        self.ansA = self.selectQuestion.ansA
+        self.ansB = self.selectQuestion.ansB
+        self.ansC = self.selectQuestion.ansC
+        self.ansD = self.selectQuestion.ansD
+        self.correctAns = self.selectQuestion.correctAns
+        self.level = self.selectQuestion.level
+        self.username = self.selectQuestion.teacherUsername
+        self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         Form.setObjectName("Form")
         Form.resize(1267, 822)
         self.label = QtWidgets.QLabel(Form)
@@ -93,21 +111,36 @@ class Ui_Form(object):
         self.displayQuestion = QtWidgets.QTextBrowser(Form)
         self.displayQuestion.setGeometry(QtCore.QRect(350, 150, 861, 241))
         self.displayQuestion.setObjectName("displayQuestion")
-        self.ansA = QtWidgets.QTextBrowser(Form)
-        self.ansA.setGeometry(QtCore.QRect(270, 410, 941, 61))
-        self.ansA.setObjectName("ansA")
-        self.ansB = QtWidgets.QTextBrowser(Form)
-        self.ansB.setGeometry(QtCore.QRect(270, 490, 941, 61))
-        self.ansB.setObjectName("ansB")
-        self.ansC = QtWidgets.QTextBrowser(Form)
-        self.ansC.setGeometry(QtCore.QRect(270, 570, 941, 61))
-        self.ansC.setObjectName("ansC")
-        self.ansD = QtWidgets.QTextBrowser(Form)
-        self.ansD.setGeometry(QtCore.QRect(270, 650, 941, 61))
-        self.ansD.setObjectName("ansD")
+        self.ansAEntry = QtWidgets.QTextBrowser(Form)
+        self.ansAEntry.setGeometry(QtCore.QRect(270, 410, 941, 61))
+        self.ansAEntry.setObjectName("ansA")
+        self.ansBEntry = QtWidgets.QTextBrowser(Form)
+        self.ansBEntry.setGeometry(QtCore.QRect(270, 490, 941, 61))
+        self.ansBEntry.setObjectName("ansB")
+        self.ansCEntry = QtWidgets.QTextBrowser(Form)
+        self.ansCEntry.setGeometry(QtCore.QRect(270, 570, 941, 61))
+        self.ansCEntry.setObjectName("ansC")
+        self.ansDEntry = QtWidgets.QTextBrowser(Form)
+        self.ansDEntry.setGeometry(QtCore.QRect(270, 650, 941, 61))
+        self.ansDEntry.setObjectName("ansD")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+        self.questionIdLabel.setText(self.quesID)
+        self.displayQuestion.setText(self.question)
+        self.rightAnswerLabel.setText(self.correctAns)
+        self.ansAEntry.setText(self.ansA)
+        self.ansBEntry.setText(self.ansB)
+        self.ansCEntry.setText(self.ansC)
+        self.ansDEntry.setText(self.ansD)
+
+        self.backButton.clicked.connect(self.back)
+        self.AppButton.clicked.connect(self.approve)
+
+
+
+
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -130,11 +163,63 @@ class Ui_Form(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.ansA.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.ansAEntry.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+
+    def approve(self):
+        self.dialog = QDialog(self.Form)
+        layout = QVBoxLayout()
+
+        label = QLabel(self.Form)
+        label.setText("Please select level of the question")
+        layout.addWidget(label)
+
+        self.comboBox = QComboBox(self.Form)
+        self.comboBox.addItem("Easy")
+        self.comboBox.addItem("Normal")
+        self.comboBox.addItem("Hard")
+        layout.addWidget(self.comboBox)
+        self.dialog.setLayout(layout)
+
+        confirm_button = QPushButton('Confirm')
+        confirm_button.clicked.connect(self.confirm)
+        layout.addWidget(confirm_button)
+        self.dialog.setLayout(layout)
+
+        close_button = QPushButton('No')
+        close_button.clicked.connect(self.dialog.close)
+        layout.addWidget(close_button)
+        self.dialog.setLayout(layout)
+
+        self.dialog.show()
+
+    def confirm(self):
+
+        self.approvedQuestion = {'subId': self.courseID, 'question': self.question, 'ansA': self.ansA, 'ansB': self.ansB,
+                                'ansC': self.ansC
+            , 'ansD': self.ansD, 'correctAnswer': self.correctAns, 'level': self.comboBox.currentText(), 'quesId': self.quesID,
+                                'teacherUsername': self.username}
+
+        self.db.put('ApprovedQuestions', self.quesID, self.approvedQuestion)
+
+        self.db.delete('PendingQuestions/'+self.quesID,None)
+
+        self.dialog.close
+        self.back()
+
+
+
+
+
+    def back(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = headTeacherPage.Ui_Form()
+        self.ui.setupUi(self.window, self.ht)
+        self.Form.hide()
+        self.window.show()
 
 
 if __name__ == "__main__":
