@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from firebase import firebase
 from question import question
 import questionDetailPage
+import firstLoginPage
 
 
 class Ui_Form(object):
@@ -61,6 +62,9 @@ class Ui_Form(object):
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1039, 549))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.scrollArea.setMinimumSize(50,300)
+
+        self.logoutButton.clicked.connect(self.logOut)
+
 
 
         #self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy)
@@ -198,6 +202,13 @@ class Ui_Form(object):
         self.window = QtWidgets.QMainWindow()
         self.ui = questionDetailPage.Ui_Form()
         self.ui.setupUi(self.window,x,self.ht)
+        self.Form.hide()
+        self.window.show()
+
+    def logOut(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = firstLoginPage.Ui_Login()
+        self.ui.setupUi(self.window)
         self.Form.hide()
         self.window.show()
 
