@@ -137,10 +137,7 @@ class Ui_Form(object):
 
         self.backButton.clicked.connect(self.back)
         self.AppButton.clicked.connect(self.approve)
-
-
-
-
+        self.notAppButton.clicked.connect(self.reject)
 
 
     def retranslateUi(self, Form):
@@ -216,7 +213,7 @@ class Ui_Form(object):
         layout = QVBoxLayout()
 
         label = QLabel(self.Form)
-        label.setText("Please select level of the question")
+        label.setText("Please give a comment")
         layout.addWidget(label)
 
         self.comment = QTextEdit(self.Form)
@@ -224,7 +221,7 @@ class Ui_Form(object):
         self.dialog.setLayout(layout)
 
         confirm_button = QPushButton('Confirm')
-        confirm_button.clicked.connect(self.confirmRejct)
+        confirm_button.clicked.connect(self.confirmReject)
         layout.addWidget(confirm_button)
         self.dialog.setLayout(layout)
 
@@ -236,7 +233,20 @@ class Ui_Form(object):
         self.dialog.show()
 
     def confirmReject(self):
-        pass
+        self.rejectQuestion = {'subId': self.courseID, 'question': self.question, 'ansA': self.ansA,
+                                 'ansB': self.ansB,
+                                 'ansC': self.ansC
+            , 'ansD': self.ansD, 'correctAnswer': self.correctAns, 'level': "", 'comment':self.comment.toPlainText(),
+                                 'quesId': self.quesID,
+                                 'teacherUsername': self.username}
+
+        self.db.put('RejectQuestions', self.quesID, self.rejectQuestion)
+
+        self.db.delete('PendingQuestions/' + self.quesID, None)
+
+        self.dialog.close
+        self.back()
+
 
 
 
