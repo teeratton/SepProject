@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from firebase import firebase
 import subYearInfoPage
 import subYearInfoPageHead
+import firstLoginPage
 
 class Ui_Regis(object):
     def setupUi(self, Form):
@@ -68,6 +69,16 @@ class Ui_Regis(object):
         self.nextButton.setFont(font)
         self.nextButton.setObjectName("nextButton")
         self.nextButton.clicked.connect(self.next)
+
+        self.logOutButton = QtWidgets.QPushButton(Form)
+        self.logOutButton.setGeometry(QtCore.QRect(150, 710, 191, 71))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.logOutButton.setFont(font)
+        self.logOutButton.setObjectName("logOutButton")
+        self.logOutButton.setText("logout")
+        self.logOutButton.clicked.connect(self.logOut)
+
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -128,11 +139,21 @@ class Ui_Regis(object):
         self.roleEntry.addItem("")
         self.nextButton = QtWidgets.QPushButton(Form)
         self.nextButton.setGeometry(QtCore.QRect(1030, 710, 191, 71))
+
         font = QtGui.QFont()
         font.setPointSize(20)
         self.nextButton.setFont(font)
         self.nextButton.setObjectName("nextButton")
         self.nextButton.clicked.connect(self.next)
+
+        self.logOutButton = QtWidgets.QPushButton(Form)
+        self.logOutButton.setGeometry(QtCore.QRect(150, 710, 191, 71))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.logOutButton.setFont(font)
+        self.logOutButton.setObjectName("logOutButton")
+        self.logOutButton.setText("logout")
+        self.logOutButton.clicked.connect(self.logOut)
 
         self.fNameEntry.setText(self.first)
         self.lNameEntry.setText(self.last)
@@ -250,6 +271,13 @@ class Ui_Regis(object):
     def ConfirmPassword(self):
         self.uNameEntry.setText(self.username)
         self.dialog.close()
+
+    def logOut(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = firstLoginPage.Ui_Login()
+        self.ui.setupUi(self.window)
+        self.Form.hide()
+        self.window.show()
 
 
 

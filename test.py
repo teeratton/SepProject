@@ -1,3 +1,4 @@
+import random
 """
 s = "math123"
 subject = ""
@@ -36,9 +37,19 @@ for x in questions :
 
 print(q)
 
+'''
+a = 1
+b = 5
+x = []
+for i in range(4):
+    y = (random.randint(a,b))
+    if(y not in x):
+        i -= 1
+    x.append(y)
 
+print(x)
 
-
+'''
 
 
 '''

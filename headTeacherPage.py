@@ -71,14 +71,19 @@ class Ui_Form(object):
         self.firstLastLabel.setText(self.first + " " + self.last)
 
         self.questions = self.db.get('/PendingQuestions', None)
+
+
         self.q = []
         for x in self.questions:
             s = (self.getSubject(self.questions.get(x).get('subId')))
             if (self.subject == s):
                 self.q.append(self.questions.get(x))
 
-        self.showSomething()
-        print(self.q)
+        if(len(self.q) != 0):
+            self.showSomething()
+        else:
+            self.nextButton.hide()
+
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate

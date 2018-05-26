@@ -9,7 +9,7 @@
 from firebase import firebase
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-from regisNewAccountPage import Ui_Regis
+import regisNewAccountPage
 import teacherPage
 from teacher import teacher
 from headTeacher import headTeacher
@@ -76,7 +76,7 @@ class Ui_Login(object):
             if (id.get('password') == password):
                 if(id.get('role') == "Admin"):
                     self.window = QtWidgets.QMainWindow()
-                    self.ui = Ui_Regis()
+                    self.ui = regisNewAccountPage.Ui_Regis()
                     self.ui.setupUi(self.window)
                     self.Form.hide()
                     self.window.show()
@@ -101,10 +101,10 @@ class Ui_Login(object):
 
 
             else:
-                dialog = QDialog(Form)
+                dialog = QDialog(self.Form)
                 layout = QVBoxLayout()
 
-                label = QLabel(Form)
+                label = QLabel(self.Form)
                 label.setText("Incorrect password")
                 layout.addWidget(label)
 
@@ -117,10 +117,10 @@ class Ui_Login(object):
 
                 print("incorrect password")
         else:
-            dialog = QDialog(Form)
+            dialog = QDialog(self.Form)
             layout = QVBoxLayout()
 
-            label = QLabel(Form)
+            label = QLabel(self.Form)
             label.setText("username is not exist")
             layout.addWidget(label)
 
