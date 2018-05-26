@@ -142,6 +142,7 @@ class Ui_Form(object):
 
 
 
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
@@ -185,7 +186,7 @@ class Ui_Form(object):
         self.dialog.setLayout(layout)
 
         confirm_button = QPushButton('Confirm')
-        confirm_button.clicked.connect(self.confirm)
+        confirm_button.clicked.connect(self.confirmApprove)
         layout.addWidget(confirm_button)
         self.dialog.setLayout(layout)
 
@@ -196,7 +197,7 @@ class Ui_Form(object):
 
         self.dialog.show()
 
-    def confirm(self):
+    def confirmApprove(self):
 
         self.approvedQuestion = {'subId': self.courseID, 'question': self.question, 'ansA': self.ansA, 'ansB': self.ansB,
                                 'ansC': self.ansC
@@ -210,6 +211,32 @@ class Ui_Form(object):
         self.dialog.close
         self.back()
 
+    def reject(self):
+        self.dialog = QDialog(self.Form)
+        layout = QVBoxLayout()
+
+        label = QLabel(self.Form)
+        label.setText("Please select level of the question")
+        layout.addWidget(label)
+
+        self.comment = QTextEdit(self.Form)
+        layout.addWidget(self.comment)
+        self.dialog.setLayout(layout)
+
+        confirm_button = QPushButton('Confirm')
+        confirm_button.clicked.connect(self.confirmRejct)
+        layout.addWidget(confirm_button)
+        self.dialog.setLayout(layout)
+
+        close_button = QPushButton('No')
+        close_button.clicked.connect(self.dialog.close)
+        layout.addWidget(close_button)
+        self.dialog.setLayout(layout)
+
+        self.dialog.show()
+
+    def confirmReject(self):
+        pass
 
 
 
