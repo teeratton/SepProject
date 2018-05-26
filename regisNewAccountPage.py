@@ -177,16 +177,18 @@ class Ui_Regis(object):
                 self.Form.hide()
                 self.window.show()
 
+
     def validate(self):
         if self.fNameEntry.text() == '':
-            print("please enter first name")
+            self.showError(2)
             return 0
         elif self.lNameEntry.text() == '':
-            print("please enter last name")
+            self.showError(3)
             return 0
         elif self.uNameEntry.text() == '':
-            print("please enter username")
+            self.showError(4)
             return 0
+
         self.username = self.uNameEntry.text()
         self.teachers = self.db.get('/Teachers', None)
 
@@ -195,6 +197,29 @@ class Ui_Regis(object):
             return 0
 
         return 1
+
+    def showError(self,i):
+
+        if (i == 2):
+            temp = 'Please enter first name'
+        elif (i== 3):
+            temp = 'Please enter last name'
+        elif i == 4:
+            temp = 'Please enter username'
+
+        dialog = QDialog(self.Form)
+        layout = QVBoxLayout()
+
+        label = QLabel(self.Form)
+        label.setText(temp)
+        layout.addWidget(label)
+
+        confirm_button = QPushButton('Close')
+        confirm_button.clicked.connect(dialog.close)
+        layout.addWidget(confirm_button)
+        dialog.setLayout(layout)
+        dialog.show()
+
 
     def generateUsername(self):
         count = 1
