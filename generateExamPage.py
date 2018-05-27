@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from teacher import teacher
 from firebase import firebase
+from reportlab.pdfgen import canvas
 import random
 import math
 
@@ -17,6 +18,7 @@ class Ui_Form(object):
         Form.setObjectName("Form")
         Form.resize(1265, 842)
         self.Form = Form
+        self.c = canvas.Canvas("test.pdf")
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         self.t = t
         self.comboBox = QtWidgets.QComboBox(Form)
@@ -70,10 +72,10 @@ class Ui_Form(object):
 
         self.questions = self.db.get('/ApprovedQuestions',None)
         self.q = []
-        #print(self.questions)
+        print(self.questions)
 
 
-        #print(self.q)
+        print(self.q)
 
 
     def retranslateUi(self, Form):
@@ -86,6 +88,7 @@ class Ui_Form(object):
         self.label.setText(_translate("Form", "Generate An Exam"))
 
     def generate(self):
+        self.y = 800
         self.q.clear()
         self.selectQuestions = []
         self.quesNum = int(self.numberEntry.text())
@@ -94,6 +97,8 @@ class Ui_Form(object):
             s = self.questions.get(x).get('subId')
             if(s == self.selectSubId):
                 self.q.append(self.questions.get(x))
+
+        print(self.q)
 
         if(self.quesNum >= len(self.q)):
             self.showError()
@@ -117,9 +122,9 @@ class Ui_Form(object):
             temp = []
             while (count < self.separate):
                 data = random.randint(0, len(self.normal) - 1)
-                if(data not in temp):
+                if (data not in temp):
                     self.selectQuestions.append(self.normal[data])
-                    count+=1
+                    count += 1
 
             remain = self.quesNum - self.separate
             remainForEasy = math.ceil(remain / 2)
@@ -144,11 +149,97 @@ class Ui_Form(object):
                     self.selectQuestions.append(self.hard[data])
                     count += 1
 
-
             for i in range(len(self.selectQuestions)):
                 print(self.selectQuestions[i].get('level'))
 
-            self.selectQuestions.clear()
+
+
+        self.xQues = 30
+        self.xAns = 50
+
+        self.c.setFont('Helvetica', 30)
+        self.c.drawCentredString(300,700,"KMITL Exam Paper")
+        self.c.drawCentredString(300,650,'Subject : ' + self.selectSubId)
+        self.c.drawCentredString(300,550,'Lecturer : ' + self.t.first + " " + self.t.last)
+        self.c.setFont('Helvetica', 22)
+        self.c.drawString(50,450, 'Name________________________________')
+        self.c.drawString(50, 400, 'Room______________')
+        self.c.drawString(50, 350, 'ID_______________')
+        self.c.showPage()
+
+        for i in range (len(self.selectQuestions)):
+            self.newQuetions = []
+
+            if len(self.selectQuestions[i].get('question')) > 65:
+                self.newQuetions = []
+                count = 0
+                temp = str(i+1) + ". "
+                for j in self.selectQuestions[i].get('question'):
+                    count += 1
+                    temp += j
+                    if (count == 65 and count != 0):
+                        self.newQuetions.append(temp)
+                        count = 0
+                        temp = ""
+
+                print(self.newQuetions)
+                for o in self.newQuetions:
+                    print(len(o))
+                print(len(self.newQuetions))
+                for z in range(len(self.newQuetions)):
+                    if(self.y == 50):
+                        self.newPage()
+                        self.c.drawString(self.xQues,self.y,self.newQuetions[z])
+                        self.y -= 30
+                    else:
+                        self.c.drawString(self.xQues, self.y, self.newQuetions[z])
+                        self.y -= 30
+
+            else:
+                if(self.y == 50):
+                    self.newPage()
+                    self.c.drawString(self.xQues,self.y,str(i+1) + ". " + self.selectQuestions[i].get('question'))
+                    self.y -= 30
+                else:
+                    self.c.drawString(self.xQues, self.y, str(i + 1) + ". " + self.selectQuestions[i].get('question'))
+                    self.y -= 30
+
+            if (self.y == 50):
+                self.newPage()
+                self.c.drawString(self.xAns,self.y,"A. " + self.selectQuestions[i].get('ansA'))
+                self.y -= 30
+            else:
+                self.c.drawString(self.xAns, self.y, "A. " + self.selectQuestions[i].get('ansA'))
+                self.y -= 30
+            if (self.y == 50):
+                self.newPage()
+                self.c.drawString(self.xAns,self.y,"B. " + self.selectQuestions[i].get('ansB'))
+                self.y -= 30
+            else:
+                self.c.drawString(self.xAns, self.y, "B. " + self.selectQuestions[i].get('ansB'))
+                self.y -= 30
+            if(self.y == 50):
+                self.newPage()
+                self.c.drawString(self.xAns,self.y,"C. " + self.selectQuestions[i].get('ansC'))
+                self.y -= 30
+            else:
+                self.c.drawString(self.xAns, self.y, "C. " + self.selectQuestions[i].get('ansC'))
+                self.y -= 30
+            if(self.y == 50):
+                self.newPage()
+                self.c.drawString(self.xAns,self.y,"D. " + self.selectQuestions[i].get('ansD'))
+                self.y -= 60
+            else:
+                self.c.drawString(self.xAns, self.y, "D. " + self.selectQuestions[i].get('ansD'))
+                self.y -= 60
+
+        self.c.drawCentredString(300,self.y,"---------------------------------------- End of exam paper ---------------------------------------")
+        self.c.save()
+        self.selectQuestions.clear()
+
+    def newPage(self):
+        self.c.showPage()
+        self.y = 800
 
     def showError(self):
         dialog = QtWidgets.QDialog(self.Form)
@@ -164,6 +255,10 @@ class Ui_Form(object):
         dialog.setLayout(layout)
 
         dialog.show()
+
+
+
+
 
 
 if __name__ == "__main__":
