@@ -9,10 +9,9 @@
 from firebase import firebase
 from PyQt5 import QtCore, QtGui, QtWidgets
 from question import question
-from teacher import teacher
+from PyQt5.QtWidgets import *
 import teacherPage
-import questionDetailPage
-import uploadQuestionPage
+import questionEditPage
 import firstLoginPage
 
 class Ui_Form(object):
@@ -25,7 +24,6 @@ class Ui_Form(object):
         self.last = self.t.getLast()
         self.subject = self.t.getSubjects()
         self.username = self.t.getUsername()
-        print("Current username is: " + self.username)
 
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         self.y = 0
@@ -61,14 +59,16 @@ class Ui_Form(object):
         self.qInboxLabel.setObjectName("qInboxLabel")
         self.nextButton = QtWidgets.QPushButton(Form)
         self.nextButton.setGeometry(QtCore.QRect(950, 650, 181, 71))
-        #self.nextButton.clicked.connect(self.increment)
+        self.nextButton.clicked.connect(self.increment)
         self.backButton = QtWidgets.QPushButton(self.Form)
         self.backButton.setGeometry(QtCore.QRect(750, 650, 181, 71))
-        #self.backButton.clicked.connect(self.decrement)
+        self.backButton.clicked.connect(self.decrement)
 
         self.logoutButton.clicked.connect(self.logOut)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+        self.logoutButton.setText("Mainmenu")
 
         self.nextButton.raise_()
         self.nextButton.hide()
@@ -81,22 +81,37 @@ class Ui_Form(object):
         self.rejects = self.db.get('/RejectQuestions',None)
 
         self.q = []
-        for x in self.questions:
-            tu = (self.questions.get(x).get('teacherUsername'))
-            if (self.username == tu):
-                self.q.append(self.questions.get(x))
+        if(len(self.rejects) != 0):
+            for x in self.rejects:
+                tu = (self.rejects.get(x).get('teacherUsername'))
+                if (self.username == tu):
+                    self.q.append(self.rejects.get(x))
 
-        self.re = []
-        for x in self.rejects:
-            tu = (self.rejects.get(x).get('teacherUsername'))
-            if (self.username == tu):
-                self.re.append(self.rejects.get(x))
-
-        if (len(self.q) != 0) and (len(self.re) != 0):
+        if (len(self.q) != 0):
             print("KAO WEII")
             self.showSomething()
         else:
             self.nextButton.hide()
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.label.setText(_translate("Form", "Check Exam Questions Status"))
+        self.firstLastLabel.setText(_translate("Form", "display teacher full name"))
+        self.logoutButton.setText(_translate("Form", "Log Out"))
+        self.qInboxLabel.setText(_translate("Form", "Question Inbox:"))
+        self.backButton.setText(_translate("Form", "Back"))
+        self.nextButton.setText(_translate("Form", "Next"))
+
+
+    def retranslateUi2(self,Form):
+        _translate = QtCore.QCoreApplication.translate
+        self.quesLabel.setText(_translate("Form", "Question ID:"))
+        self.courseIdLabel.setText(_translate("Form", "Course ID:"))
+        self.statusLabel.setText(_translate("Form", "Status:"))
+        self.commentLabel.setText(_translate("Form", "Comment:"))
+        self.editButton.setText(_translate("Form", "Edit "))
+        self.deleteButton.setText(_translate("Form", "Delete"))
             
     def increment(self):
             self.backButton.show()
@@ -126,7 +141,6 @@ class Ui_Form(object):
         self.showSomething()
 
     def showSomething(self):
-        print("KAO JINGJING")
         for i in range(self.start, self.stop, 1):
             self.quesID = self.q[i].get('quesId')
             self.courseID = self.q[i].get('subId')
@@ -138,6 +152,7 @@ class Ui_Form(object):
             self.correctAns = self.q[i].get('correctAnswer')
             self.level = self.q[i].get('level')
             self.username = self.q[i].get('teacherUsername')
+            self.comment = self.q[i].get('comment')
 
             self.selectQuestion = question(self.quesID, self.courseID, self.question, self.ansA,
                         self.ansB, self.ansC, self.ansD, self.correctAns, self.level, self.username)
@@ -150,39 +165,84 @@ class Ui_Form(object):
             self.quesLabel.setFont(font)
             self.quesLabel.setObjectName("quesLabel")
 
-            self.displayQuesId = QtWidgets.QLabel(self.Form)
-            self.displayQuesId.setGeometry(QtCore.QRect(360, 210 + self.y, 131, 51))
-            self.displayQuesId.setFont(font)
-            self.displayQuesId.setObjectName("displayQuesId")
-
             self.courseIdLabel = QtWidgets.QLabel(self.Form)
-            self.courseIdLabel.setGeometry(QtCore.QRect(510, 210 + self.y, 131, 51))
+            self.courseIdLabel.setGeometry(QtCore.QRect(190, 240 + self.y, 131, 51))
             self.courseIdLabel.setFont(font)
             self.courseIdLabel.setObjectName("courseIdLabel")
 
+            self.statusLabel = QtWidgets.QLabel(self.Form)
+            self.statusLabel.setGeometry(QtCore.QRect(190, 270 + self.y, 161,51))
+            self.statusLabel.setFont(font)
+            self.statusLabel.setObjectName("statusLabel")
+
+            self.commentLabel = QtWidgets.QLabel(self.Form)
+            self.commentLabel.setGeometry(QtCore.QRect(450, 210 + self.y, 161,51))
+            self.commentLabel.setFont(font)
+            self.commentLabel.setObjectName("commentLabel")
+
+            self.displayQuesId = QtWidgets.QLabel(self.Form)
+            self.displayQuesId.setGeometry(QtCore.QRect(320, 210 + self.y, 131, 51))
+            self.displayQuesId.setFont(font)
+            self.displayQuesId.setObjectName("displayQuesId")
+
             self.displayCourseId = QtWidgets.QLabel(self.Form)
-            self.displayCourseId.setGeometry(QtCore.QRect(660, 210 + self.y, 241, 51))
+            self.displayCourseId.setGeometry(QtCore.QRect(320, 240 + self.y, 241, 51))
             self.displayCourseId.setFont(font)
             self.displayCourseId.setObjectName("displayCourseId")
+
+            self.displayStatus = QtWidgets.QLabel(self.Form)
+            self.displayStatus.setGeometry(QtCore.QRect(320, 270 + self.y, 241, 51))
+            self.displayStatus.setFont(font)
+            self.displayStatus.setObjectName("displayCourseId")
+
+            self.editButton = QtWidgets.QPushButton(self.Form)
+            self.editButton.setGeometry(QtCore.QRect(980, 225 + self.y, 131,61))
+            self.editButton.setFont(font)
+
+            self.deleteButton = QtWidgets.QPushButton(self.Form)
+            self.deleteButton.setGeometry(QtCore.QRect(980, 275 + self.y, 131, 61))
+            self.deleteButton.setFont(font)
+
+            self.displayComment = QtWidgets.QTextBrowser(self.Form)
+            self.displayComment.setGeometry(QtCore.QRect(530,230 + self.y,431, 100))
+            self.displayComment.setObjectName("displayComment")
 
             self.a.append(self.quesLabel)
             self.a.append(self.displayQuesId)
             self.a.append(self.displayCourseId)
             self.a.append(self.courseIdLabel)
+            self.a.append(self.statusLabel)
+            self.a.append(self.displayStatus)
+            self.a.append(self.commentLabel)
+            self.a.append(self.deleteButton)
+            self.a.append(self.nextButton)
+            self.a.append(self.displayComment)
+            self.a.append(self.editButton)
 
             for x in self.a:
                 x.show()
+
+            self.editButton.clicked.connect(lambda checked, arg = self.selectQuestion: self.edit(arg))
+            self.deleteButton.clicked.connect(lambda checked, arg = self.selectQuestion: self.reject(arg))
 
             self.quesLabel.raise_()
             self.displayQuesId.raise_()
             self.courseIdLabel.raise_()
             self.displayCourseId.raise_()
+            self.statusLabel.raise_()
+            self.displayStatus.raise_()
+            self.commentLabel.raise_()
+            self.deleteButton.raise_()
+            self.displayComment.raise_()
+            self.editButton.raise_()
             self.nextButton.raise_()
 
             self.retranslateUi2(self.Form)
 
             self.displayQuesId.setText(self.quesID)
             self.displayCourseId.setText(self.courseID)
+            self.displayStatus.setText("REJECTED")
+            self.displayComment.setText(self.comment)
   
             self.y += 150
 
@@ -196,31 +256,64 @@ class Ui_Form(object):
                 self.nextButton.hide()
                 break
 
-    def retranslateUi(self, Form):
-        _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.label.setText(_translate("Form", "Check Exam Questions Status"))
-        self.firstLastLabel.setText(_translate("Form", "display teacher full name"))
-        self.logoutButton.setText(_translate("Form", "Log Out"))
-        self.qInboxLabel.setText(_translate("Form", "Question Inbox:"))
-        self.backButton.setText(_translate("Form", "Back"))
+    def reject(self, x):
+        self.newX = x.getQuestionId()
+        self.dialog = QDialog(self.Form)
+        layout = QVBoxLayout()
 
-    def retranslateUi2(self,Form):
-        self._translate = QtCore.QCoreApplication.translate
-        self.quesLabel.setText(_translate("Form", "Question ID:"))
-        self.courseLabel.setText(_translate("Form", "Course ID:"))
-        '''
-        self.statusLabel.setText(_translate("Form", "Status:"))
-        self.displayStatus.setText(_translate("Form", "Not Approved"))
-        self.editButton.setText(_translate("Form", "Edit "))
-        self.commentLabel.setText(_translate("Form", "Comment:"))
-        self.displayCommentBrowser.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">I don\'t think the choice A is the correct answer since the theory of relativity conflicts with this answer. But i think this is a really interesting question. </span></p></body></html>"))
-        self.deleteButton.setText(_translate("Form", "Delete"))
-'''
+        label = QLabel(self.Form)
+        label.setText("Are you sure you want to delete this question?")
+        layout.addWidget(label)
+
+        confirm_button = QPushButton('Confirm')
+        confirm_button.clicked.connect(self.helper)
+        layout.addWidget(confirm_button)
+        self.dialog.setLayout(layout)
+
+        close_button = QPushButton('No')
+        close_button.clicked.connect(self.dialog.close)
+        layout.addWidget(close_button)
+        self.dialog.setLayout(layout)
+
+        self.dialog.show()
+
+    def helper(self):
+        self.confirmReject(self.newX)
+
+    def confirmReject(self, x):
+        self.tempStatus = 0
+        self.db.delete('/RejectQuestions/' + x, None)
+        self.dialog.close()
+
+        self.dialog = QtWidgets.QDialog(self.Form)
+        layout = QtWidgets.QVBoxLayout()
+
+        label = QtWidgets.QLabel(self.Form)
+        label.setText('The question is deleted')
+        layout.addWidget(label)
+
+        confirm_button = QtWidgets.QPushButton('Confirm')
+        confirm_button.clicked.connect(self.backAgain)
+        layout.addWidget(confirm_button)
+        self.dialog.setLayout(layout)
+        self.dialog.show()
+
+    def backAgain(self):
+        self.dialog.close()
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_Form()
+        self.ui.setupUi(self.window, self.t)
+        self.Form.hide()
+        self.window.show()
+
+
+    def edit(self,x):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = questionEditPage.Ui_Form()
+        self.ui.setupUi(self.window, x, self.t)
+        self.Form.hide()
+        self.window.show()
+
 
     def back(self):
         self.window = QtWidgets.QMainWindow()
@@ -231,19 +324,29 @@ class Ui_Form(object):
 
     def logOut(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = firstLoginPage.Ui_Login()
-        self.ui.setupUi(self.window)
+        self.ui = teacherPage.Ui_Form()
+        self.ui.setupUi(self.window,self.t)
         self.Form.hide()
         self.window.show()
 
-    def getSubject(self, subId):
-        subject = ""
-        for i in range(len(subId)):
-            if not (subId[i].isdigit()):
-                subject += subId[i]
-        return subject
+    def successDialog(self):
+        if (self.tempStatus == 0):
+            text = "The question is approved"
+        elif (self.tempStatus == 1):
+            text = "The question is rejected"
 
+        dialog = QtWidgets.QDialog(self.Form)
+        layout = QtWidgets.QVBoxLayout()
 
+        label = QtWidgets.QLabel(self.Form)
+        label.setText(text)
+        layout.addWidget(label)
+
+        confirm_button = QtWidgets.QPushButton('Confirm')
+        confirm_button.clicked.connect(self.back)
+        layout.addWidget(confirm_button)
+        dialog.setLayout(layout)
+        dialog.show()
 
 if __name__ == "__main__":
     import sys

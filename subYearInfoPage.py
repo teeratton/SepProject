@@ -151,6 +151,16 @@ class Ui_SubYear(object):
         self.Form.hide()
         self.window.show()
 
+    def back2(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = regisNewAccountPage.Ui_Regis()
+        self.ui.setupUi(self.window)
+        self.Form.hide()
+        self.window.show()
+
+
+
+
     def done(self):
         if(self.readData() == True):
             self.printSummary()
@@ -251,6 +261,8 @@ class Ui_SubYear(object):
     def Confirm(self):
         self.db.put('Teachers', self.username, self.teacher)
         self.dialog.close()
+        self.back2()
+
 
     def generatePassword(self):
         passWord = ""

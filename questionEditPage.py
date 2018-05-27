@@ -8,18 +8,27 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-from question import question
-import teacherPage
+import checkQuestionStatus
 import random
 import string
 from firebase import firebase
 
 
 class Ui_Form(object):
-    def setupUi(self, Form,t):
+    def setupUi(self, Form, question, t):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         self.t = t
-        self.quesId = ""
+        self.selectQuestion = question
+        self.quesID = self.selectQuestion.questionId
+        self.courseID = self.selectQuestion.subId
+        self.question = self.selectQuestion.question
+        self.ansA = self.selectQuestion.ansA
+        self.ansB = self.selectQuestion.ansB
+        self.ansC = self.selectQuestion.ansC
+        self.ansD = self.selectQuestion.ansD
+        self.correctAns = self.selectQuestion.correctAns
+        self.level = self.selectQuestion.level
+
         Form.setObjectName("Form")
         Form.resize(1265, 842)
         self.Form = Form
@@ -120,17 +129,31 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+        self.questionText.setText(self.question)
+        self.aText.setText(self.ansA)
+        self.bText.setText(self.ansB)
+        self.cText.setText(self.ansC)
+        self.dText.setText(self.ansD)
+        print(self.courseID)
+
+
+        if (self.correctAns == "A"):
+            self.aRadio.setChecked(True)
+        elif (self.correctAns == "B"):
+            self.bRadio.setChecked(True)
+        elif (self.correctAns == "C"):
+            self.cRadio.setChecked(True)
+        else:
+            self.dRadio.setChecked(True)
+
         self.doneButton.clicked.connect(self.done)
         self.backButton.clicked.connect(self.back)
 
         for x in self.t.getSubjects() :
             self.comboBox.addItem(self.t.getSubjects().get(x))
+        index = self.comboBox.findText(self.courseID)
+        self.comboBox.setCurrentIndex(index)
 
-        self.questionText.setText("")
-        self.aText.setText("")
-        self.bText.setText("")
-        self.cText.setText("")
-        self.dText.setText("")
 
 
     def retranslateUi(self, Form):
@@ -233,10 +256,7 @@ class Ui_Form(object):
         if (self.dRadio.isChecked()):
             self.correctAnswer = self.dRadio.text()
 
-        self.generateQuestionID()
-
         # self.q = question(self.subId,self.question,self.ansA,self.ansB,self.ansC,self.ansD,self.correctAnswer,"",self.quesId,self.t.username)
-
 
         self.dialog = QDialog(self.Form)
         layout = QVBoxLayout()
@@ -259,22 +279,14 @@ class Ui_Form(object):
 
 
 
-
-    def generateQuestionID(self):
-        randomNum = ""
-        self.quesId = ""
-        for i in range(5):
-            randomNum += random.choice(string.digits)
-        self.quesId += self.t.getUsername() + randomNum
-
     def ConfirmPassword(self):
         self.pendingQuestion = {'subId': self.subId, 'question': self.question, 'ansA': self.ansA, 'ansB': self.ansB,
                                 'ansC': self.ansC
-            , 'ansD': self.ansD, 'correctAnswer': self.correctAnswer, 'level': "", 'quesId': self.quesId,
+            , 'ansD': self.ansD, 'correctAnswer': self.correctAnswer, 'level': "", 'quesId': self.quesID,
                                 'teacherUsername': self.t.username}
 
-        self.db.put('PendingQuestions', self.quesId, self.pendingQuestion)
-
+        self.db.put('PendingQuestions', self.quesID, self.pendingQuestion)
+        self.db.delete('RejectQuestions/'+ self.quesID,None)
         self.dialog.close()
         self.successDialog()
 
@@ -283,7 +295,7 @@ class Ui_Form(object):
         layout = QVBoxLayout()
 
         label = QLabel(self.Form)
-        label.setText("Upload Successful")
+        label.setText("The question is edited")
         layout.addWidget(label)
 
         confirm_button = QPushButton('Confirm')
@@ -294,7 +306,7 @@ class Ui_Form(object):
 
     def back(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = teacherPage.Ui_Form()
+        self.ui = checkQuestionStatus.Ui_Form()
         self.ui.setupUi(self.window, self.t)
         self.Form.hide()
         self.window.show()

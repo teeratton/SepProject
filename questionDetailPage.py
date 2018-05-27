@@ -195,7 +195,7 @@ class Ui_Form(object):
         self.dialog.show()
 
     def confirmApprove(self):
-
+        self.tempStatus = 0
         self.approvedQuestion = {'subId': self.courseID, 'question': self.question, 'ansA': self.ansA, 'ansB': self.ansB,
                                 'ansC': self.ansC
             , 'ansD': self.ansD, 'correctAnswer': self.correctAns, 'level': self.comboBox.currentText(), 'quesId': self.quesID,
@@ -205,8 +205,9 @@ class Ui_Form(object):
 
         self.db.delete('PendingQuestions/'+self.quesID,None)
 
-        self.dialog.close
-        self.back()
+        self.dialog.close()
+        self.successDialog()
+
 
     def reject(self):
         self.dialog = QDialog(self.Form)
@@ -233,6 +234,7 @@ class Ui_Form(object):
         self.dialog.show()
 
     def confirmReject(self):
+        self.tempStatus = 1
         self.rejectQuestion = {'subId': self.courseID, 'question': self.question, 'ansA': self.ansA,
                                  'ansB': self.ansB,
                                  'ansC': self.ansC
@@ -244,11 +246,27 @@ class Ui_Form(object):
 
         self.db.delete('PendingQuestions/' + self.quesID, None)
 
-        self.dialog.close
-        self.back()
+        self.dialog.close()
+        self.successDialog()
 
+    def successDialog(self):
+        if (self.tempStatus == 0):
+            text = "The question is approved"
+        elif (self.tempStatus == 1):
+            text = "The question is rejected"
 
+        dialog = QtWidgets.QDialog(self.Form)
+        layout = QtWidgets.QVBoxLayout()
 
+        label = QtWidgets.QLabel(self.Form)
+        label.setText(text)
+        layout.addWidget(label)
+
+        confirm_button = QtWidgets.QPushButton('Confirm')
+        confirm_button.clicked.connect(self.back)
+        layout.addWidget(confirm_button)
+        dialog.setLayout(layout)
+        dialog.show()
 
 
     def back(self):
