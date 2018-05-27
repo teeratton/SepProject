@@ -70,10 +70,10 @@ class Ui_Form(object):
 
         self.questions = self.db.get('/ApprovedQuestions',None)
         self.q = []
-        print(self.questions)
+        #print(self.questions)
 
 
-        print(self.q)
+        #print(self.q)
 
 
     def retranslateUi(self, Form):
@@ -95,36 +95,61 @@ class Ui_Form(object):
             if(s == self.selectSubId):
                 self.q.append(self.questions.get(x))
 
-        print(self.q)
-
         if(self.quesNum >= len(self.q)):
             self.showError()
 
         else:
             self.separate = math.ceil(self.quesNum / 2)
-            count = 0
             self.randomNum = []
-            print(self.quesNum)
-            print(len(self.q))
-            print(self.separate)
 
-            while (len(self.randomNum) < self.quesNum):
-                data = random.randint(0,len(self.q)-1)
-                if(data not in self.randomNum):
-                    if self.q[data].get('level') == 'Easy':
-                        if(count < self.separate):
-                            count += 1
-                            self.randomNum.append(data)
-                    else:
-                        self.randomNum.append(data)
 
-            print(self.randomNum)
+            self.easy = []
+            self.normal = []
+            self.hard = []
 
-            for i in self.randomNum:
-                self.selectQuestions.append(self.q[i])
+            for i in range(len(self.q)):
+                if self.q[i].get('level') == 'Normal':
+                    self.normal.append(self.q[i])
+                if self.q[i].get('level') == 'Easy':
+                    self.easy.append(self.q[i])
+                if self.q[i].get('level') == 'Hard':
+                    self.hard.append(self.q[i])
+            count = 0
+            temp = []
+            while (count < self.separate):
+                data = random.randint(0, len(self.normal) - 1)
+                if(data not in temp):
+                    self.selectQuestions.append(self.normal[data])
+                    count+=1
 
-        for i in range (len(self.selectQuestions)):
-            print(self.selectQuestions[i].get('level'))
+            remain = self.quesNum - self.separate
+            remainForEasy = math.ceil(remain / 2)
+            remainForHard = remain - remainForEasy
+
+            temp = []
+            count = 0
+
+            while (count < remainForEasy):
+                data = random.randint(0, len(self.easy) - 1)
+                print(data)
+                if (data not in temp):
+                    self.selectQuestions.append(self.easy[data])
+                    count += 1
+
+            temp = []
+            count = 0
+            while (count < remainForHard):
+                data = random.randint(0, len(self.hard) - 1)
+                print(data)
+                if (data not in temp):
+                    self.selectQuestions.append(self.hard[data])
+                    count += 1
+
+
+            for i in range(len(self.selectQuestions)):
+                print(self.selectQuestions[i].get('level'))
+
+            self.selectQuestions.clear()
 
     def showError(self):
         dialog = QtWidgets.QDialog(self.Form)
@@ -140,10 +165,6 @@ class Ui_Form(object):
         dialog.setLayout(layout)
 
         dialog.show()
-
-
-
-
 
 
 if __name__ == "__main__":

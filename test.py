@@ -12,6 +12,7 @@ for i in range(len(s)):
 print(subject)
 print(year)
 """
+'''
 from firebase import firebase
 
 
@@ -37,7 +38,7 @@ for x in questions :
 
 print(q)
 
-'''
+
 a = 1
 b = 5
 x = []
@@ -61,4 +62,13 @@ print(x)
         self.showSomething()
         print(self.q)
 '''
+a = 0
+b = 4
+x = []
+for i in range(3):
+    y = (random.randint(a,b))
+    if(y not in x):
+        i -= 1
+    x.append(y)
 
+print(x)
