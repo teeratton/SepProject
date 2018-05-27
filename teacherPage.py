@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from teacher import teacher
 import uploadQuestionPage
+import checkQuestionStatus
 import firstLoginPage
 import generateExamPage
 
@@ -59,6 +60,7 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+        self.checkButton.clicked.connect(self.check)
         self.uploadButton.clicked.connect(self.upload)
         self.generateButton.clicked.connect(self.generate)
         self.logoutButton.clicked.connect(self.logOut)
@@ -97,6 +99,12 @@ class Ui_Form(object):
         self.Form.hide()
         self.window.show()
 
+    def check(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = checkQuestionStatus.Ui_Form()
+        self.ui.setupUi(self.window,self.t)
+        self.Form.hide()
+        self.window.show()
 
 if __name__ == "__main__":
     import sys
