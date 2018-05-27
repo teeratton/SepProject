@@ -102,7 +102,6 @@ class Ui_Form(object):
             self.separate = math.ceil(self.quesNum / 2)
             self.randomNum = []
 
-
             self.easy = []
             self.normal = []
             self.hard = []
