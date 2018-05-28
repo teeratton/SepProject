@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from firebase import firebase
+from time import sleep
 
 import approveRejectSystem
 

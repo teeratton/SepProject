@@ -83,6 +83,8 @@ class approveRejectSystem(object):
         if len(self.q) <= 3:
             self.nextButton.hide()
 
+        self.qInboxLabel.setText("Question Inbox: " + str(len(self.q)))
+
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -131,8 +133,8 @@ class approveRejectSystem(object):
     def showSomething(self):
         print(str(self.start) + "start")
         print(str(self.stop) + "stop")
-        print()
         self.length = len(self.q)
+        print(str(self.length))
 
         for i in range(self.start, self.stop, 1):
 
@@ -219,9 +221,6 @@ class approveRejectSystem(object):
 
             if self.start == 0:
                 self.backButton.hide()
-
-            if i == self.stop - len(self.q):
-                break
 
             if i == len(self.q) - 1:
                 self.nextButton.hide()
