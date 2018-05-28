@@ -9,13 +9,13 @@
 from firebase import firebase
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-import regisNewAccountPage
+import registerSystem
 import teacherPage
 from teacher import teacher
 from headTeacher import headTeacher
-import headTeacherPage
+import approveRejectSystem
 
-class Ui_Login(object):
+class loginSystem(object):
     def setupUi(self, Form):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         self.Form = Form
@@ -76,7 +76,7 @@ class Ui_Login(object):
             if (id.get('password') == password):
                 if(id.get('role') == "Admin"):
                     self.window = QtWidgets.QMainWindow()
-                    self.ui = regisNewAccountPage.Ui_Regis()
+                    self.ui = registerSystem.registerSystem()
                     self.ui.setupUi(self.window)
                     self.Form.hide()
                     self.window.show()
@@ -92,7 +92,7 @@ class Ui_Login(object):
                 if(id.get('role') == "Head Teacher"):
                     self.ht = headTeacher(id.get('first'), id.get('last'),username,id.get('password'),id.get('subject'))
                     self.window = QtWidgets.QMainWindow()
-                    self.ui = headTeacherPage.Ui_Form()
+                    self.ui = approveRejectSystem.approveRejectSystem()
                     self.ui.setupUi(self.window, self.ht)
                     self.Form.hide()
                     self.window.show()
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Login()
+    ui = loginSystem()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

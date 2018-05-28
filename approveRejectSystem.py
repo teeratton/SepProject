@@ -10,10 +10,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from firebase import firebase
 from question import question
 import questionDetailPage
-import firstLoginPage
+import loginSystem
 
 
-class Ui_Form(object):
+class approveRejectSystem(object):
     def setupUi(self, Form, ht):
         Form.setObjectName("Form")
         self.Form = Form
@@ -84,6 +84,11 @@ class Ui_Form(object):
         if(len(self.q) != 0):
             self.showSomething()
         else:
+            self.nextButton.hide()
+
+        print(len(self.q))
+
+        if len(self.q) <= 3:
             self.nextButton.hide()
 
 
@@ -247,7 +252,7 @@ class Ui_Form(object):
 
     def logOut(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = firstLoginPage.Ui_Login()
+        self.ui = loginSystem.loginSystem()
         self.ui.setupUi(self.window)
         self.Form.hide()
         self.window.show()
@@ -259,7 +264,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = approveRejectSystem()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

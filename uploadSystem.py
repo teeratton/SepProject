@@ -15,7 +15,7 @@ import string
 from firebase import firebase
 
 
-class Ui_Form(object):
+class uploadSystem(object):
     def setupUi(self, Form,t):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         self.t = t
@@ -187,6 +187,7 @@ class Ui_Form(object):
             layout.addWidget(close_button)
             self.dialogException.setLayout(layout)
             self.dialogException.show()
+
         else:
             if (self.validate() == 2):
                 temp = 'Please tick correct answer'
@@ -211,13 +212,12 @@ class Ui_Form(object):
     def done(self):
         if self.validate() == 1:
             self.Confirmation()
-        elif self.validate() == 3:
-            self.dialogException.close()
-            self.Confirmation()
         else:
             self.showDialog()
 
     def Confirmation(self):
+        if(self.validate() == 3):
+            self.dialogException.close()
         self.subId = self.comboBox.currentText()
         self.question = self.questionText.toPlainText()
         self.ansA = self.aText.toPlainText()
@@ -305,7 +305,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = uploadSystem()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

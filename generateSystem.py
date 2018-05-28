@@ -15,7 +15,7 @@ from reportlab.pdfgen import canvas
 import random
 import math
 
-class Ui_Form(object):
+class generateSystem(object):
     def setupUi(self, Form,t):
         Form.setObjectName("Form")
         Form.resize(1265, 842)
@@ -232,13 +232,14 @@ class Ui_Form(object):
                 else:
                     self.c.drawString(self.xAns, self.y, "C. " + self.selectQuestions[i].get('ansC'))
                     self.y -= 30
-                if(self.y == 50):
-                    self.newPage()
-                    self.c.drawString(self.xAns,self.y,"D. " + self.selectQuestions[i].get('ansD'))
-                    self.y -= 60
-                else:
-                    self.c.drawString(self.xAns, self.y, "D. " + self.selectQuestions[i].get('ansD'))
-                    self.y -= 60
+                if(self.selectQuestions[i].get('ansD') != ""):
+                    if(self.y == 50):
+                        self.newPage()
+                        self.c.drawString(self.xAns,self.y,"D. " + self.selectQuestions[i].get('ansD'))
+                        self.y -= 60
+                    else:
+                        self.c.drawString(self.xAns, self.y, "D. " + self.selectQuestions[i].get('ansD'))
+                        self.y -= 60
 
             self.c.drawCentredString(300,self.y,"---------------------------------------- End of exam paper ---------------------------------------")
             self.c.save()
@@ -293,7 +294,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = generateSystem()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

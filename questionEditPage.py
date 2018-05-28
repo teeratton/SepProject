@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-import checkQuestionStatus
+import statusSystem
 import random
 import string
 from firebase import firebase
@@ -306,7 +306,7 @@ class Ui_Form(object):
 
     def back(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = checkQuestionStatus.Ui_Form()
+        self.ui = statusSystem.statusSystem()
         self.ui.setupUi(self.window, self.t)
         self.Form.hide()
         self.window.show()

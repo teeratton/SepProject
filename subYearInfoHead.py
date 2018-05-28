@@ -9,11 +9,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from headTeacher import headTeacher
-import regisNewAccountPage
+import registerSystem
 from firebase import firebase
 import string
 import random
-class Ui_Form(object):
+class subYearInfoHead(object):
     def setupUi(self, Form, first, last, username, role):
         self.Form = Form
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
@@ -119,7 +119,7 @@ class Ui_Form(object):
 
     def back(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = regisNewAccountPage.Ui_Regis()
+        self.ui = registerSystem.registerSystem()
         self.ui.reOpen(self.window, self.first, self.last, self.username, self.role)
         self.Form.hide()
         self.window.show()
@@ -200,7 +200,7 @@ class Ui_Form(object):
         file.close()
         self.dialog.close()
         self.window = QtWidgets.QMainWindow()
-        self.ui = regisNewAccountPage.Ui_Regis()
+        self.ui = registerSystem.registerSystem()
         self.ui.setupUi(self.window)
         self.Form.hide()
         self.window.show()
@@ -216,7 +216,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = subYearInfoHead()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

@@ -11,11 +11,11 @@ from PyQt5.QtWidgets import *
 import random
 import string
 from firebase import firebase
-import regisNewAccountPage
+import registerSystem
 from teacher import teacher
 
 
-class Ui_SubYear(object):
+class subYearInfo(object):
     def setupUi(self, Form, first, last, username, role):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         self.subjects = {}
@@ -146,14 +146,14 @@ class Ui_SubYear(object):
 
     def back(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = regisNewAccountPage.Ui_Regis()
+        self.ui = registerSystem.registerSystem()
         self.ui.reOpen(self.window, self.first, self.last, self.username, self.role)
         self.Form.hide()
         self.window.show()
 
     def back2(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = regisNewAccountPage.Ui_Regis()
+        self.ui = registerSystem.registerSystem()
         self.ui.setupUi(self.window)
         self.Form.hide()
         self.window.show()
@@ -279,7 +279,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_SubYear()
+    ui = subYearInfo()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

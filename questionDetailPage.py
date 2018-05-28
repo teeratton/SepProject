@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from firebase import firebase
 
-import headTeacherPage
+import approveRejectSystem
 
 class Ui_Form(object):
     def setupUi(self, Form,question,ht):
@@ -234,6 +234,9 @@ class Ui_Form(object):
         self.dialog.show()
 
     def confirmReject(self):
+        if(self.comment.toPlainText() == ""):
+            self.exceptionConfirm()
+            return
         self.tempStatus = 1
         self.rejectQuestion = {'subId': self.courseID, 'question': self.question, 'ansA': self.ansA,
                                  'ansB': self.ansB,
@@ -248,6 +251,43 @@ class Ui_Form(object):
 
         self.dialog.close()
         self.successDialog()
+    def exceptionConfirm(self):
+        self.dialog = QDialog(self.Form)
+        layout = QVBoxLayout()
+
+        label = QLabel(self.Form)
+        label.setText("Do you want to reject without comment?")
+        layout.addWidget(label)
+
+        confirm_button = QPushButton('Confirm')
+        confirm_button.clicked.connect(self.anotherConfirm)
+        layout.addWidget(confirm_button)
+        self.dialog.setLayout(layout)
+
+        close_button = QPushButton('No')
+        close_button.clicked.connect(self.dialog.close)
+        layout.addWidget(close_button)
+        self.dialog.setLayout(layout)
+
+        self.dialog.show()
+
+    def anotherConfirm(self):
+        self.tempComment = "No comment"
+        self.tempStatus = 1
+        self.rejectQuestion = {'subId': self.courseID, 'question': self.question, 'ansA': self.ansA,
+                               'ansB': self.ansB,
+                               'ansC': self.ansC
+            , 'ansD': self.ansD, 'correctAnswer': self.correctAns, 'level': "", 'comment': self.tempComment,
+                               'quesId': self.quesID,
+                               'teacherUsername': self.username}
+
+        self.db.put('RejectQuestions', self.quesID, self.rejectQuestion)
+
+        self.db.delete('PendingQuestions/' + self.quesID, None)
+
+        self.dialog.close()
+        self.successDialog()
+
 
     def successDialog(self):
         if (self.tempStatus == 0):
@@ -271,7 +311,7 @@ class Ui_Form(object):
 
     def back(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = headTeacherPage.Ui_Form()
+        self.ui = approveRejectSystem.approveRejectSystem()
         self.ui.setupUi(self.window, self.ht)
         self.Form.hide()
         self.window.show()

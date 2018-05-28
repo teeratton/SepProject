@@ -8,10 +8,10 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from teacher import teacher
-import uploadQuestionPage
-import checkQuestionStatus
-import firstLoginPage
-import generateExamPage
+import uploadSystem
+import statusSystem
+import loginSystem
+import generateSystem
 
 
 class Ui_Form(object):
@@ -79,14 +79,14 @@ class Ui_Form(object):
 
     def upload(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = uploadQuestionPage.Ui_Form()
+        self.ui = uploadSystem.uploadSystem()
         self.ui.setupUi(self.window,self.t)
         self.Form.hide()
         self.window.show()
 
     def generate(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = generateExamPage.Ui_Form()
+        self.ui = generateSystem.generateSystem()
         self.ui.setupUi(self.window, self.t)
         self.Form.hide()
         self.window.show()
@@ -94,14 +94,14 @@ class Ui_Form(object):
 
     def logOut(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = firstLoginPage.Ui_Login()
+        self.ui = loginSystem.loginSystem()
         self.ui.setupUi(self.window)
         self.Form.hide()
         self.window.show()
 
     def check(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = checkQuestionStatus.Ui_Form()
+        self.ui = statusSystem.statusSystem()
         self.ui.setupUi(self.window,self.t)
         self.Form.hide()
         self.window.show()

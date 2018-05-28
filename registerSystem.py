@@ -8,11 +8,11 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from firebase import firebase
-import subYearInfoPage
-import subYearInfoPageHead
-import firstLoginPage
+import subYearInfo
+import subYearInfoHead
+import loginSystem
 
-class Ui_Regis(object):
+class registerSystem(object):
     def setupUi(self, Form):
         self.db = firebase.FirebaseApplication('https://test-982ab.firebaseio.com/')
         Form.setObjectName("Form")
@@ -78,7 +78,6 @@ class Ui_Regis(object):
         self.logOutButton.setObjectName("logOutButton")
         self.logOutButton.setText("logout")
         self.logOutButton.clicked.connect(self.logOut)
-
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -186,14 +185,14 @@ class Ui_Regis(object):
 
             if(role == "Teacher"):
                 self.window = QtWidgets.QMainWindow()
-                self.ui = subYearInfoPage.Ui_SubYear()
+                self.ui = subYearInfo.subYearInfo()
                 self.ui.setupUi(self.window, first, last, username, role)
                 self.Form.hide()
                 self.window.show()
 
             if(role == "Head Teacher"):
                 self.window = QtWidgets.QMainWindow()
-                self.ui = subYearInfoPageHead.Ui_Form()
+                self.ui = subYearInfoHead.subYearInfoHead()
                 self.ui.setupUi(self.window,first,last,username,role)
                 self.Form.hide()
                 self.window.show()
@@ -220,7 +219,6 @@ class Ui_Regis(object):
         return 1
 
     def showError(self,i):
-
         if (i == 2):
             temp = 'Please enter first name'
         elif (i== 3):
@@ -274,7 +272,7 @@ class Ui_Regis(object):
 
     def logOut(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = firstLoginPage.Ui_Login()
+        self.ui = loginSystem.loginSystem()
         self.ui.setupUi(self.window)
         self.Form.hide()
         self.window.show()
@@ -286,7 +284,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Regis()
+    ui = registerSystem()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

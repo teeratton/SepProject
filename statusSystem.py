@@ -12,9 +12,9 @@ from question import question
 from PyQt5.QtWidgets import *
 import teacherPage
 import questionEditPage
-import firstLoginPage
+import loginSystem
 
-class Ui_Form(object):
+class statusSystem(object):
     def setupUi(self, Form,t):
         Form.setObjectName("Form")
         self.t = t
@@ -301,7 +301,7 @@ class Ui_Form(object):
     def backAgain(self):
         self.dialog.close()
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_Form()
+        self.ui = statusSystem()
         self.ui.setupUi(self.window, self.t)
         self.Form.hide()
         self.window.show()
@@ -352,7 +352,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = statusSystem()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
