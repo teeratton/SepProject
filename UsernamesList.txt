@@ -1,0 +1,2 @@
+username : CaramelT password : gcPBIEzA role : Teacher
+username : BlablaA password : c3doqUnS role : Head Teacher

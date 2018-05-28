@@ -195,6 +195,9 @@ class Ui_Form(object):
 
     def Confirm(self):
         self.db.put('Teachers', self.username, self.teacher)
+        file = open("UsernamesList.txt", "a")
+        file.write("username : " + self.username + " password : " + self.password + " role : " + self.role + "\n")
+        file.close()
         self.dialog.close()
         self.window = QtWidgets.QMainWindow()
         self.ui = regisNewAccountPage.Ui_Regis()

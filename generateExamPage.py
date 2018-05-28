@@ -63,6 +63,7 @@ class Ui_Form(object):
         self.numberEntry.setText("")
         self.numberEntry.setObjectName("numberEntry")
         self.previewButton.clicked.connect(self.generate)
+        self.backButton.clicked.connect(self.back)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -95,7 +96,7 @@ class Ui_Form(object):
         self.y = 800
         self.q.clear()
         self.selectQuestions = []
-        if(self.numberEntry.text() != ""):
+        if(self.numberEntry.text() != "" and self.numberEntry.text().isdigit()):
             self.quesNum = int(self.numberEntry.text())
             self.selectSubId = self.comboBox.currentText()
             for x in self.questions:
